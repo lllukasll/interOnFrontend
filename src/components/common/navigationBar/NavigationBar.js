@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './NavigationBar.css';
-import { userActions } from '../_actions';
-import logo from '../images/logo.png';
-import avatar from '../images/av.jpg';
+import { userActions } from '../../../actions';
+import logo from '../../../images/logo.png';
+import avatar from '../../../images/av.jpg';
 
 class NavigationBar extends React.Component {
 
+  /*
   componentDidMount() {
     const { user } = this.props;
     if(user)
@@ -15,6 +16,7 @@ class NavigationBar extends React.Component {
       this.props.dispatch(userActions.getUser(this.props.user.clientId));
     }
   }
+  */
 
   constructor(props) {
       super(props);

@@ -2,12 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import { userActions } from '../../actions';
 
 class HomePage extends React.Component {
 
-  render() {
+  componentDidMount() {
+    const { user } = this.props;
+    if(user)
+    {
+      this.props.dispatch(userActions.getUser(this.props.user.clientId));
+    }
+  }
 
+  render() {
       const { loggedIn } = this.props;
 
       const userContent = (
@@ -301,6 +308,7 @@ class HomePage extends React.Component {
        return (
          <div>
            { loggedIn ? userContent : guestContent}
+
          </div>
      );
    }
