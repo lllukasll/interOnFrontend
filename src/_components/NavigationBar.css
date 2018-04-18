@@ -1,0 +1,412 @@
+body{
+ min-height: 100%;
+}
+
+/* NAVBAR */
+nav{
+  background-color: white;
+  opacity: 0.9;
+}
+/*
+.btn-link{
+  color: rgb(136,52,147);
+}*/
+#dropdownMenuButton{
+  background-color: rgb(136,52,147);
+  opacity: 0.85;
+
+}
+
+.avatar {
+border-radius: 50%;
+border: 1px solid black;
+height: 65px;
+margin-right: 40px;
+}
+/*logo*/
+.navbar-brand img{
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+}
+/*SECTION*/
+
+.header{ /*fioletowa część z napisem */
+  margin-top: 20px;
+  background-color: rgb(136,52,147);
+  box-shadow: 0px -1px 5px 2px rgba(0,0,0,0.3);
+  border-radius: 3px;
+  font-family: 'Oswald', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 5px;
+
+}
+
+.content{  /* szarty prostokąt na tło go grup, wydarzeń */
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px -1px 24px 3px rgba(56,56,56,1);
+  border-radius: 2px;
+  margin-bottom: 30px;
+  margin-top: 0px;
+
+}
+
+.img-margin{
+  margin: 10px 30px;
+}
+
+.interest-content{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+
+.group-content{
+    margin: 15px auto;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.more-btn {
+  margin:20px;
+}
+.details-btn {
+  background-color: rgba(136,52,147,0.9);
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 130px;
+}
+
+
+.date{
+  font-style:italic;
+  color:#5d5d5d
+}
+h3{
+    font-family: 'Oswald', sans-serif;
+    font-size:  25px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*.margin-left{
+  padding-right:  40px;
+}*/
+
+/*FOOTER*/
+
+footer{
+  background-color: white;
+  opacity: 0.9;
+  padding: 5px;
+  font-size: 12px;
+}
+#footer-tekst{
+  text-align: center;
+margin-bottom: 0px;
+}
+
+.main{
+  overflow:auto;
+  padding-bottom: 50px;
+  min-height: 100%;
+}
+
+
+/*Formularz logowania i rejestracji */
+.forms{
+  margin: 40px auto;
+}
+.forms h3{
+  font-family: 'Oswald', sans-serif;
+  font-size:  35px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color:  #472c42;
+}
+
+  .margin-login{
+    margin: 86px auto;
+  }
+
+.margins-form{
+  margin: auto;
+}
+
+#forgotten-password a{
+color: rgb(136,52,147);
+}
+
+.regulamin{
+color:  black;
+margin-bottom: 10px;
+}
+ .regulamin a{
+   text-decoration: none;
+   font-weight: bold;
+   color: rgb(136,52,147);;
+}
+
+/*SIDEBAR*/
+.content-sidebar{  /* fioletowy prostokąt na tło*/
+  background-color: rgba(136,52,147, 0.6);
+  box-shadow: 0px -1px 24px 3px rgba(56,56,56,1);
+  border-radius: 5px;
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
+
+.sidebar{
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  height: 420px;
+}
+.sidebar-button{
+  background-color: rgba(255,255,255,0.8);
+}
+.lines {
+  border-bottom: 1px solid black);
+  box-shadow: 0px -1px 1px 1px rgba(80,0,98,0.8);
+  border-radius: 2px;
+  opacity: 0.7;
+  margin: 5px 0;
+}
+.now{
+  background-color: rgba(0,0,0,0.8);
+  color: rgb(255,255,255);
+  text-decoration: underline;
+}
+
+/* ****ZMIANA AVATARA I HASŁA******** */
+.profile-changes{
+  margin-top: 30px;
+  margin-left: 30px;
+  padding-bottom: 8px;
+}
+  .profile-changes h1 {
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  color: rgb(136,52,147);
+  margin-top: 15px;
+  font-weight: bold;
+  text-shadow: 2px 1px rgba(0,0,0,0.5);
+
+}
+
+.new-avatar{
+  border-radius: 50%;
+}
+
+#av-input-margin-top {
+  margin-top: 80px;
+}
+.margin-top{
+  margin-top: 8px;
+}
+
+/*** PROFIL *****/
+.profile-photo{
+  max-height: 250px;
+  border-radius: 50%;
+}
+
+#name{
+    font-size: 40px;
+    font-family: 'Oswald', sans-serif;
+    color: rgba(136,52,147,0.9);
+    text-align: center;
+    font-weight: bold;
+}
+#email{
+  font-weight: bold;
+  color:#472c42;
+}
+
+/* POWIADOMENIA */
+.notifications p{
+  color:#472c42;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+.notification-text hr {
+  border: 1px solid black;
+}
+
+/*************PODKATEGORIE**********/
+.subcategories{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.subcategories h5 {
+  text-align:left;
+  color: rgba(72,72,72,0.8);
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  margin-top:10px;
+  margin-left: 5px;
+}
+.subcategories h1{
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  color: rgb(136,52,147);
+  margin-top: 15px;
+  font-weight: bold;
+  text-shadow: 1px 2px rgba(0,0,0,0.5);
+}
+
+.group-searcher{
+  opacity: 0.83;
+}
+/********* PAGNIACJA ***************/
+.pagination-color{
+  background-color: rgba(136,52,147,0.8);
+  color:white;
+  border-radius: 3px;
+}
+.page-link:hover {
+background-color: white;
+color: rgb(136,52,147);
+}
+
+/********GRUPY ******************/
+.groups {
+  margin-top: 30px;
+  margin-left: 5px;
+}
+.black{
+  background-color: black;
+  color: black;
+}
+.group-image{
+  max-width: 130px;
+  border-radius: 2px;
+}
+.group-description{
+  margin-left: 10px;
+}
+.group-button{
+  float: right;
+  margin: 10px 0px;
+ }
+.test{
+  background-color: black;
+
+}
+.group-description h4{
+  color: rgba(136,52,147,0.8);
+  text-shadow: 1px 1px rgba(0,0,0,0.5);
+}
+.group-description p{
+margin: 0;
+max-width: 500px;
+}
+.members{
+  display: inline;
+  font-weight: bold;
+  margin: 0;
+  color: rgba(72,72,72,0.9);
+}
+
+.group-photo{
+    max-height: 200px;
+    border-radius: 3px;
+    border: 2px solid black;
+    box-shadow: 1px 1px rgba(0,0,0,0.5);
+    margin-left: 15px;
+}
+
+#group-name {
+  margin: 0;
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+  color: rgba(72,72,72,0.9);
+  text-align: center;
+  font-weight: bold;
+}
+
+#dropRightEvents{
+  background-color: rgb(136,52,147);
+  opacity: 0.85;
+
+}
+#dropRightExit{
+  background-color: rgb(136,52,147);
+  opacity: 0.85;
+  margin-left: 20px;
+}
+#submitPost{
+  float: right;
+  margin-top: 10px;
+}
+
+.post{
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 80%;
+  margin: auto;
+  padding: 8px;
+  border-radius: 5px;
+
+}
+.comments {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 70%;
+  margin: auto;
+  padding: 8px;
+  border-radius: 3px
+}
+.border-post {
+    border-bottom: 2px solid rgba(136,52,147,0.7);
+}
+.margin-post{
+  margin-bottom: 30px;
+}
+.comment-avatar{
+  border-radius: 50%;
+  height: 55px;
+  margin-right: 20px;
+}
+.comments p a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(136,52,147);
+
+}
+.under-post{
+  margin-top: 30px;
+}
+
+
+/*********TEST*****************/
+.form-div{
+  margin: 50px;
+}
+#file{
+  display: none;
+}
+
+.file-label{
+  background-color: rgba(136,52,147,0.85);
+  color: white;
+  padding: 30px;
+  font-weight:400;
+  text-shadow: 2px 1px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  transition: 0.4s;
+}
+
+.file-label:hover {
+  background-color: rgba(136,52,147,0.75);
+  cursor: pointer;
+
+}
+.fa-upload{
+  margin-right: 10px;
+}
