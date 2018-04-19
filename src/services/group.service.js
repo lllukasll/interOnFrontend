@@ -2,7 +2,8 @@ import { authHeader, config } from '../helpers';
 
 export const groupService = {
   getAll,
-  getGroup
+  getGroup,
+  createGroup
 };
 
 function getAll() {
@@ -22,6 +23,21 @@ function getGroup(id) {
   };
 
   return fetch(config.apiUrl + '/api/group/' + id, requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function createGroup(group) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: group.name,
+      description: group.description,
+      subcategories: [parseInt(group.subcategories)]
+    })
+  };
+
+  return fetch(config.apiUrl + '/api/group', requestOptions)
     .then(handleResponse, handleError);
 }
 

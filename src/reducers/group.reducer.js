@@ -26,7 +26,13 @@ export function groups(state = {}, action) {
       return {
         error: action.error
       };
-      default:
-        return state
+    case groupConstants.CREATEGROUP_REQUEST:
+      return { creating: true };
+    case groupConstants.CREATEGROUP_SUCCESS:
+      return {};
+    case groupConstants.CREATEGROUP_FAILURE:
+      return {};
+    default:
+      return state
     }
   }

@@ -8,6 +8,7 @@ import { MainCategories } from '../components/mainCategories/MainCategories';
 import { SubCategories } from '../components/subCategories/SubCategories';
 import { Groups } from '../components/groups/Groups';
 import { Group } from '../components/groups/Group';
+import { CreateGroup } from '../components/groups/CreateGroup';
 import {history} from '../helpers'
 
 import {connect} from 'react-redux';
@@ -33,6 +34,7 @@ class App extends React.Component {
                 <Route path="/subCategories/:id" component={SubCategories} />
                 <Route path="/groups" component={Groups} />
                 <Route path="/group/:id" component={Group} />
+                <Route path="/createGroup" component={CreateGroup} />
                 </div>
             </div>
           </Router>

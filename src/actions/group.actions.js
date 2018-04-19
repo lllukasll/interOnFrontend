@@ -1,9 +1,11 @@
 import { groupConstants } from '../constants';
 import { groupService } from '../services';
+import { alertActions } from './';
 
 export const groupActions = {
   getAll,
-  getGroup
+  getGroup,
+  createGroup
 }
 
 function getAll() {
@@ -40,4 +42,26 @@ function getGroup(id) {
   function request() {return {type: groupConstants.GETGROUP_REQUEST}}
   function success(group) {return {type: groupConstants.GETGROUP_SUCCESS, group}}
   function failure(error) {return {type: groupConstants.GETGROUP_FAILURE, error}}
+}
+
+function createGroup(group) {
+  return dispatch => {
+    dispatch(request(group));
+
+    groupService.createGroup(group)
+      .then(
+        group => {
+          dispatch(success());
+          dispatch(alertActions.success("Poprawnie dodano grupę"));
+        },
+        error => {
+          dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function request(group) {return {type: groupConstants.CREATEGROUP_REQUEST, group}}
+  function success(group) {return {type: groupConstants.CREATEGROUP_SUCCESS, group}}
+  function failure(error) {return {type: groupConstants.CREATEGROUP_FAILURE, error}}
 }
