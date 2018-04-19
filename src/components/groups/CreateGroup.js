@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
-import { mainCategoryActions } from '../../actions';
+import { subCategoryActions } from '../../actions';
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -25,7 +25,7 @@ class CreateGroup extends React.Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    this.props.dispatch(mainCategoryActions.getAll());
+    this.props.dispatch(subCategoryActions.getAll());
     this.setState({isLoading:false});
   }
 
@@ -62,7 +62,6 @@ class CreateGroup extends React.Component {
       this.setState({ submitted: true });
       const { group } = this.state;
       const { dispatch } = this.props;
-      console.log(group.subcategories);
       if (group.name && group.description && group.subcategories) {
           dispatch(groupActions.createGroup(group));
       }
@@ -70,7 +69,7 @@ class CreateGroup extends React.Component {
 
   render() {
     const { isLoading } = this.state;
-    const { mainCategories } = this.props;
+    const { subCategories } = this.props;
     const { groups  } = this.props;
     const { group, submitted } = this.state;
     const { alert } = this.props;
@@ -103,7 +102,7 @@ class CreateGroup extends React.Component {
 				</div>
 
 			 <div class="col-md-7 ">
-       {mainCategories.loading ? (<em>Ładowanie kategorii <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+       {subCategories.loadingAll ? (<em>Ładowanie kategorii <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
        </em>) : (
          <div>
 				<form name="form" onSubmit={this.handleSubmit}>
@@ -113,10 +112,10 @@ class CreateGroup extends React.Component {
                 <div className="help-block">Nazwa jest wymagana</div>
             }
           </div>
-            {mainCategories &&
+            {subCategories &&
               <div className={'form-group' + (submitted && !group.subcategories ? ' has-error' : '')}>
                 <select class="custom-select margin-top" name="subcategories" value={group.subcategories} onChange={this.updateInputValue} multiple>
-                  {mainCategories.category.map((cat, index) =>
+                  {subCategories.categories.map((cat, index) =>
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   )}
                 </select>
@@ -152,18 +151,13 @@ class CreateGroup extends React.Component {
   }
 }
 
-CreateGroup.propTypes = {
-  group: PropTypes.shape({
-    subcategories: PropTypes.arrayOf(PropTypes.number)
-  })
-}
 
 function mapStateToProps(state) {
-    const { mainCategories } = state;
+    const { subCategories } = state;
     const { groups } = state;
     const { alert } = state;
     return {
-        mainCategories,
+        subCategories,
         groups,
         alert
     };

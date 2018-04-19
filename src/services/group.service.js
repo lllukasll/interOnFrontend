@@ -29,12 +29,8 @@ function getGroup(id) {
 function createGroup(group) {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      name: group.name,
-      description: group.description,
-      subcategories: [parseInt(group.subcategories)]
-    })
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(group)
   };
 
   return fetch(config.apiUrl + '/api/group', requestOptions)

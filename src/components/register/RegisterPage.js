@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../../actions';
+import { alertActions } from '../../actions';
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -16,11 +17,20 @@ class RegisterPage extends React.Component {
                 email: '',
                 password: ''
             },
+            password2: '',
             submitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateInputValue = this.updateInputValue.bind(this);
+    }
+
+    updateInputValue(event){
+      const { password2 } = this.state;
+      this.setState({
+        password2: event.target.value
+      })
     }
 
     handleChange(event) {
@@ -38,16 +48,22 @@ class RegisterPage extends React.Component {
         event.preventDefault();
 
         this.setState({ submitted: true });
-        const { user } = this.state;
+        const { user, password2 } = this.state;
         const { dispatch } = this.props;
-        if (user.name && user.surname && user.username && user.email && user.password) {
+        if (user.name && user.surname && user.username && user.email && user.password && user.password == password2) {
             dispatch(userActions.register(user));
+        }
+
+        if(user.password != password2) {
+          dispatch(alertActions.error("Hasła nie są takie same"))
         }
     }
 
     render() {
         const { registering  } = this.props;
-        const { user, submitted } = this.state;
+        const { user, submitted, password2 } = this.state;
+        const { alert } = this.props;
+
         return (
             <section className="container">
               <div className="row">
@@ -85,6 +101,12 @@ class RegisterPage extends React.Component {
                               <div className="help-block">Hasło jest wymagane</div>
                           }
                       </div>
+                      <div className={'form-group' + (submitted && !password2 ? ' has-error' : '')}>
+                          <input type="password" className="form-control margin-top" name="password2" placeholder="Powtórz Hasło" value={password2} onChange={this.updateInputValue} />
+                          {submitted && !password2 &&
+                              <div className="help-block">Hasło jest wymagane</div>
+                          }
+                      </div>
                       <div className="form-check">
                         <input type="checkbox" className="form-check-input" id="regulamin-check" />
                         <label className="form-check-label regulamin" for="regulamin-check">Zapoznałem się z <a href="#">regulaminem</a> serwisu</label>
@@ -104,9 +126,6 @@ class RegisterPage extends React.Component {
                 </div>
               </div>
             </div>
-
-
-
           </section>
 
         );
@@ -115,8 +134,10 @@ class RegisterPage extends React.Component {
 
 function mapStateToProps(state) {
     const { registering } = state.registration;
+    const { alert } = state;
     return {
-        registering
+        registering,
+        alert
     };
 }
 

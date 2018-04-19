@@ -25,7 +25,7 @@ class SubCategories extends React.Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    this.props.dispatch(subCategoryActions.getAll(this.props.id));
+    this.props.dispatch(subCategoryActions.getAllForId(this.props.id));
     this.setState({isLoading:false});
     console.log(this.props);
   }

@@ -1,16 +1,27 @@
 import { authHeader, config } from '../helpers';
 
 export const subCategoryService = {
+  getAllForId,
   getAll
 };
 
-function getAll(id) {
+function getAllForId(id) {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
 
   return fetch(config.apiUrl + '/api/maincategories/' + id + '/subcategories', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function getAll() {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+
+  return fetch(config.apiUrl + '/api/subcategories', requestOptions)
     .then(handleResponse, handleError);
 }
 
