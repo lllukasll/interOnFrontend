@@ -6,6 +6,7 @@ export const userService = {
   register,
   getAll,
   getById,
+  getLoggedUser,
   update,
   delete: _delete
 };
@@ -49,6 +50,16 @@ function getById(id) {
   };
 
   return fetch(config.apiUrl + '/users/' + id, requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function getLoggedUser() {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+
+  return fetch(config.apiUrl + '/users/getLoggedUser', requestOptions)
     .then(handleResponse, handleError);
 }
 

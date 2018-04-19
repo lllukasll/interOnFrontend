@@ -2,6 +2,7 @@ import React from 'react';
 import { mainCategoryActions } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SideBar from '../common/sideBar/SideBar';
 
 class MainCategories extends React.Component {
 
@@ -26,7 +27,7 @@ class MainCategories extends React.Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    this.props.dispatch(mainCategoryActions.getAll(this.props.match.params.id));
+    this.props.dispatch(mainCategoryActions.getAll());
     this.setState({isLoading:false});
     console.log(this.props);
   }
@@ -44,18 +45,7 @@ class MainCategories extends React.Component {
       <section className="container">
         <div className="row ">
 
-          <div className="col-md-2 sidebar content-sidebar ">
-            <div className="list-group">
-              <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Moje grupy</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Moje Wydarzenia</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Znajomi</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Wiadomości</a>
-              <div className="lines"> </div>
-              <a href="more-category-logged.html" className="list-group-item list-group-item-action sidebar-button ">Kategorie</a>
-              <a href="more-groups-logged.html" className="list-group-item list-group-item-action sidebar-button">Grupy</a>
-              <a href="more-events-logged.html" className="list-group-item list-group-item-action sidebar-button">Wydarzenia</a>
-            </div>
-          </div>
+          <SideBar />
 
           <div class="col-md-10 ">
             <div class="row">

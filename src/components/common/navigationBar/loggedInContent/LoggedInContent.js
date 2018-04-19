@@ -1,8 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { userActions } from '../../../../actions';
 
 class LoggedInContent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true
+    };
+
+  }
+
+  componentDidMount() {
+    this.setState({isLoading: true});
+    this.props.dispatch(userActions.getLoggedUser());
+    this.setState({isLoading:false});
+  }
+
   render() {
     const { loggedUser } = this.props;
 
@@ -23,15 +38,17 @@ class LoggedInContent extends React.Component {
 
         <div>
           <ul className="navbar-nav mr-auto">
-            <a href="profile.html"> <li className="nav-item"><img src="./images/av.jpg" className="avatar" alt="avatar"/></li></a>
+            <a href="profile.html"> <li className="nav-item"><img src="/images/av.jpg" className="avatar" alt="avatar"/></li></a>
             <li className="nav-item">
-            <div>Witaj, {loggedUser.userData && loggedUser.userData.name}</div>
+            <div>Witaj, {loggedUser.loggedUserData && loggedUser.loggedUserData.name}</div>
               <div className="dropdown">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Moje konto
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <Link to="/login" className="dropdown-item">Wyloguj się</Link>
+                  <a class="dropdown-item" href="new-group.html">Utwórz Grupę</a>
+                  <a class="dropdown-item" href="new-event.html">Utwórz Wydarzenie</a>
                 </div>
               </div>
             </li>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { subCategoryActions } from '../../actions';
 import { connect } from 'react-redux';
-
+import SideBar from '../common/sideBar/SideBar';
 class SubCategories extends React.Component {
 
 
@@ -43,18 +43,7 @@ class SubCategories extends React.Component {
       <section className="container">
         <div className="row ">
 
-          <div className="col-md-2 sidebar content-sidebar ">
-            <div className="list-group">
-              <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Moje grupy</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Moje Wydarzenia</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Znajomi</a>
-              <a href="#" className="list-group-item list-group-item-action sidebar-button">Wiadomości</a>
-              <div className="lines"> </div>
-              <a href="more-category-logged.html" className="list-group-item list-group-item-action sidebar-button ">Kategorie</a>
-              <a href="more-groups-logged.html" className="list-group-item list-group-item-action sidebar-button">Grupy</a>
-              <a href="more-events-logged.html" className="list-group-item list-group-item-action sidebar-button">Wydarzenia</a>
-            </div>
-          </div>
+          <SideBar />
 
           <div class="col-md-10 ">
             <div class="row">

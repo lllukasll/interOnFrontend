@@ -14,6 +14,18 @@ export function loggedUser(state = {}, action) {
       return {
         error: action.error
       };
+    case userConstants.GETLOGGEDUSER_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETLOGGEDUSER_SUCCESS:
+      return {
+        loggedUserData: action.user
+      };
+    case userConstants.GETLOGGEDUSER_FAILURE:
+      return {
+        error: action.error
+      };
     default:
       return state
 

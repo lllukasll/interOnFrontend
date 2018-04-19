@@ -6,6 +6,7 @@ import { users } from './users.reducer';
 import { loggedUser } from './user.reducer';
 import { mainCategories } from './mainCategory.reducer';
 import { subCategories } from './subCategory.reducer';
+import { groups } from './group.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   loggedUser,
   mainCategories,
   subCategories,
+  groups,
   alert
 });
 
