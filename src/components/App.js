@@ -4,6 +4,7 @@ import { NavigationBar } from './common/navigationBar/NavigationBar.js';
 import { HomePage } from '../components/home';
 import { LoginPage } from '../components/login';
 import { RegisterPage } from '../components/register';
+import { MainCategories } from '../components/mainCategories/MainCategories';
 import {history} from '../helpers'
 
 import {connect} from 'react-redux';
@@ -25,6 +26,7 @@ class App extends React.Component {
                 <Route exact path="/" component={HomePage} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
+                <Route path="/mainCategories" component={MainCategories} />
                 </div>
             </div>
           </Router>

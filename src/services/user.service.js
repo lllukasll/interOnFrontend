@@ -27,16 +27,7 @@ function login(username, password) {
       return user;
     });
 }
-/*
-function isLoggedIn() {
-  let user = localStorage.getItem('user');
-  if(user){
-    return user;
-  } else {
-    return false;
-  }
-}
-*/
+
 function logout() {
   localStorage.removeItem('user');
 }
