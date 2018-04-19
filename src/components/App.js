@@ -5,6 +5,7 @@ import { HomePage } from '../components/home';
 import { LoginPage } from '../components/login';
 import { RegisterPage } from '../components/register';
 import { MainCategories } from '../components/mainCategories/MainCategories';
+import { SubCategories } from '../components/subCategories/SubCategories';
 import {history} from '../helpers'
 
 import {connect} from 'react-redux';
@@ -27,6 +28,7 @@ class App extends React.Component {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/mainCategories" component={MainCategories} />
+                <Route path="/subCategories/:id" component={SubCategories} />
                 </div>
             </div>
           </Router>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { mainCategoryActions } from '../../actions';
+import { subCategoryActions } from '../../actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-class MainCategories extends React.Component {
+class SubCategories extends React.Component {
 
 
   constructor() {
@@ -26,13 +25,13 @@ class MainCategories extends React.Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    this.props.dispatch(mainCategoryActions.getAll(this.props.match.params.id));
+    this.props.dispatch(subCategoryActions.getAll(this.props.id));
     this.setState({isLoading:false});
     console.log(this.props);
   }
 
   render() {
-    const { mainCategories } = this.props;
+    const { subCategories } = this.props;
     const { isLoading } = this.state;
 
     if(isLoading) {
@@ -60,19 +59,19 @@ class MainCategories extends React.Component {
           <div class="col-md-10 ">
             <div class="row">
               <div class="col-md-10 offset-md-1  header ">
-                <h1>Kategorie Zainteresowań</h1>
+                <h1>Pod-Kategorie Zainteresowań</h1>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-10 offset-md-1 content" >
-                {mainCategories.loading ? (<em>Ładowanie kategorii <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                {subCategories.loading ? (<em>Ładowanie kategorii <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </em>) : (
                   <div class="col-md-4">
-                  {mainCategories &&
+                  {subCategories &&
                     <div>
-                      {mainCategories.category.map((cat, index) =>
-                        <div key={index}><Link to={`/subCategories/${cat.id}`} className="col-md-4">{cat.name}</Link></div>
+                      {subCategories.category.map((cat, index) =>
+                        <div key={index}>{cat.name}</div>
                       )}
                     </div>
                   }
@@ -88,12 +87,14 @@ class MainCategories extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-    const { mainCategories } = state;
+function mapStateToProps(state, ownProps) {
+  console.log(ownProps);
+    const { subCategories } = state;
     return {
-        mainCategories
+        subCategories,
+        id: ownProps.match.params.id
     };
 }
 
-const connectedMainCategories = connect(mapStateToProps)(MainCategories);
-export { connectedMainCategories as MainCategories };
+const connectedSubCategories = connect(mapStateToProps)(SubCategories);
+export { connectedSubCategories as SubCategories };
