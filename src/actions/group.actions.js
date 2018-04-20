@@ -5,7 +5,8 @@ import { alertActions } from './';
 export const groupActions = {
   getAll,
   getGroup,
-  createGroup
+  createGroup,
+  joinGroup
 }
 
 function getAll() {
@@ -64,4 +65,44 @@ function createGroup(group) {
   function request(group) {return {type: groupConstants.CREATEGROUP_REQUEST, group}}
   function success(group) {return {type: groupConstants.CREATEGROUP_SUCCESS, group}}
   function failure(error) {return {type: groupConstants.CREATEGROUP_FAILURE, error}}
+}
+
+function joinGroup(id) {
+  return dispatch => {
+
+    groupService.joinGroup(id)
+      .then(
+        group => {
+          dispatch(success());
+          dispatch(alertActions.success("Dołączono do grupy"));
+        },
+        error => {
+          dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function success() {return {type: groupConstants.JOINGROUP_SUCCESS}}
+}
+
+function leaveGroup(id) {
+  return dispatch => {
+    dispatch(request());
+
+    groupService.leaveGroup(id)
+      .then(
+        group => {
+          dispatch(success());
+          dispatch(alertActions.success("Opuszczono grupę"));
+        },
+        error => {
+          dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function request() {return {type: groupConstants.JOINGROUP_REQUEST}}
+  function success() {return {type: groupConstants.JOINGROUP_SUCCESS}}
+  function failure(error) {return {type: groupConstants.JOINGROUP_FAILURE, error}}
 }

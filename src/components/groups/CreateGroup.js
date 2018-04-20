@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
 import { subCategoryActions } from '../../actions';
+import { alertActions } from '../../actions';
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -24,6 +25,7 @@ class CreateGroup extends React.Component {
   }
 
   componentDidMount() {
+    //this.props.dispatch(alertActions.clear());
     this.setState({isLoading: true});
     this.props.dispatch(subCategoryActions.getAll());
     this.setState({isLoading:false});

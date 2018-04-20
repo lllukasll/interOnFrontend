@@ -9,6 +9,8 @@ import { SubCategories } from '../components/subCategories/SubCategories';
 import { Groups } from '../components/groups/Groups';
 import { Group } from '../components/groups/Group';
 import { CreateGroup } from '../components/groups/CreateGroup';
+import { MyProfile } from '../components/myProfile/MyProfile';
+import { ChangePassword } from '../components/myProfile/profileInfo/changePassword/ChangePassword';
 import {history} from '../helpers'
 
 import {connect} from 'react-redux';
@@ -35,6 +37,8 @@ class App extends React.Component {
                 <Route path="/groups" component={Groups} />
                 <Route path="/group/:id" component={Group} />
                 <Route path="/createGroup" component={CreateGroup} />
+                <Route path="/myProfile" component={MyProfile} />
+                <Route path="/changePassword" component={ChangePassword} />
                 </div>
             </div>
           </Router>

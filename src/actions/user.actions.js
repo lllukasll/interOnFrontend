@@ -10,7 +10,8 @@ export const userActions = {
   getAll,
   getUser,
   getLoggedUser,
-  delete: _delete
+  delete: _delete,
+  changePassword
 };
 
 function login(username, password) {
@@ -138,4 +139,26 @@ function _delete(id) {
   function request(id) {return {type: userConstants.DELETE_REQUEST, id}}
   function success(id) {return {type: userConstants.DELETE_SUCCESS, id}}
   function failure(id, error) {return {type: userConstants.DELETE_FAILURE, id, error}}
+}
+
+function changePassword(data) {
+  return dispatch => {
+    dispatch(request(data));
+
+    userService.changePassword(data)
+      .then(
+        data => {
+          dispatch(success());
+          dispatch(alertActions.success("Pomyślnie zmieniono hasło"));
+        },
+        error => {
+          //dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function request(data) {return {type: userConstants.CHANGEPASSWORD_REQUEST, data}}
+  function success(message) {return {type: userConstants.CHANGEPASSWORD_SUCCESS, message}}
+  function failure(error) {return {type: userConstants.CHANGEPASSWORD_FAILURE, error}}
 }

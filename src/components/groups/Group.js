@@ -3,6 +3,7 @@ import { groupActions } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
+import { config } from '../../helpers';
 
 class Group extends React.Component {
   constructor() {
@@ -11,6 +12,11 @@ class Group extends React.Component {
       isLoading: true
     };
 
+    this.joinGroup = this.joinGroup.bind(this);
+  }
+
+  joinGroup() {
+    this.props.dispatch(groupActions.joinGroup(this.props.id));
   }
 
   componentDidMount() {
@@ -22,6 +28,7 @@ class Group extends React.Component {
   render() {
     const { groups } = this.props;
     const { isLoading } = this.state;
+    const { alert } = this.props;
 
     if(isLoading) {
       return <p>Loading ...</p>;
@@ -47,7 +54,7 @@ class Group extends React.Component {
 
               <div class="row">
                 <div class="col-md-4 ">
-                  <img src="/images/ogorkowa.jpg" alt="img"  class="group-photo" />
+                  <img src={config.apiUrl + "/api/photo/" + groups.group.avatarUrl} alt="img"  class="group-photo" />
                 </div>
                 <div class="col-md-7 ">
                   <div class="row">
@@ -80,13 +87,15 @@ class Group extends React.Component {
                     <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-sign-out-alt"></i>
                     </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Opuść grupę</a>
+                    <div class="btn">
+                      <button type="button" onClick={this.joinGroup}>Dołącz do grupy</button>
                     </div>
                 </div>
               </div>
             </div>
-
+              {alert.message &&
+              <div className={`alert ${alert.type}`}>{alert.message}</div>
+              }
             </div>
           )}
           </div>
@@ -100,8 +109,10 @@ class Group extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     const { groups } = state;
+    const { alert } = state;
     return {
         groups,
+        alert,
         id: ownProps.match.params.id
     };
 }

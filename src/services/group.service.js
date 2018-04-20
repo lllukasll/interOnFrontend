@@ -3,7 +3,8 @@ import { authHeader, config } from '../helpers';
 export const groupService = {
   getAll,
   getGroup,
-  createGroup
+  createGroup,
+  joinGroup
 };
 
 function getAll() {
@@ -34,6 +35,17 @@ function createGroup(group) {
   };
 
   return fetch(config.apiUrl + '/api/group', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function joinGroup(id) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify()
+  };
+
+  return fetch(config.apiUrl + '/api/group/' + id, requestOptions)
     .then(handleResponse, handleError);
 }
 

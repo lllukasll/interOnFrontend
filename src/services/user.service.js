@@ -8,7 +8,8 @@ export const userService = {
   getById,
   getLoggedUser,
   update,
-  delete: _delete
+  delete: _delete,
+  changePassword
 };
 
 function login(username, password) {
@@ -92,6 +93,17 @@ function _delete(id) {
   };
 
   return fetch(config.apiUrl + '/users/' + id, requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function changePassword(data) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { ...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  };
+
+  return fetch(config.apiUrl + '/users/changePassword', requestOptions)
     .then(handleResponse, handleError);
 }
 

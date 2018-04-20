@@ -38,7 +38,7 @@ class LoggedInContent extends React.Component {
 
         <div>
           <ul className="navbar-nav mr-auto">
-            <a href="profile.html"> <li className="nav-item"><img src="/images/av.jpg" className="avatar" alt="avatar"/></li></a>
+            <Link to="myProfile"> <li className="nav-item"><img src="/images/av.jpg" className="avatar" alt="avatar"/></li></Link>
             <li className="nav-item">
             <div>Witaj, {loggedUser.loggedUserData && loggedUser.loggedUserData.name}</div>
               <div className="dropdown">
@@ -47,7 +47,7 @@ class LoggedInContent extends React.Component {
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <Link to="/login" className="dropdown-item">Wyloguj się</Link>
-                  <a class="dropdown-item" href="new-group.html">Utwórz Grupę</a>
+                  <Link to="/createGroup" className="dropdown-item">Utwórz Grupę</Link>
                   <a class="dropdown-item" href="new-event.html">Utwórz Wydarzenie</a>
                 </div>
               </div>

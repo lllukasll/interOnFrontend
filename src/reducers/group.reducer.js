@@ -27,11 +27,22 @@ export function groups(state = {}, action) {
         error: action.error
       };
     case groupConstants.CREATEGROUP_REQUEST:
-      return { creating: true };
+      return { 
+        creating: true 
+      };
     case groupConstants.CREATEGROUP_SUCCESS:
-      return {};
+      return {
+
+      };
     case groupConstants.CREATEGROUP_FAILURE:
-      return {};
+      return {
+
+      };
+    case groupConstants.JOINGROUP_SUCCESS:
+      return {
+        ...state,
+        joined: true
+      };
     default:
       return state
     }

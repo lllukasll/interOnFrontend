@@ -31,3 +31,23 @@ export function loggedUser(state = {}, action) {
 
   }
 }
+
+export function changePassword(state = {}, action) {
+  switch (action.type) {
+    case userConstants.CHANGEPASSWORD_REQUEST:
+      return {
+        loadingChangePassword: true
+      };
+    case userConstants.CHANGEPASSWORD_SUCCESS:
+      return {
+        
+      };
+    case userConstants.CHANGEPASSWORD_FAILURE:
+      return {
+        error: action.error
+      };
+    default:
+      return state
+
+  }
+}
