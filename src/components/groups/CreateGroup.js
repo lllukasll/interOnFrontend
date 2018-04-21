@@ -17,6 +17,8 @@ class CreateGroup extends React.Component {
         description: '',
         subcategories: []
       },
+      file: '',
+      imagePreviewUrl: '',
       submitted: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -40,6 +42,22 @@ class CreateGroup extends React.Component {
               [name]: value
           }
       });
+  }
+
+  _handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
   }
 
   updateInputValue(event){
@@ -75,6 +93,14 @@ class CreateGroup extends React.Component {
     const { groups  } = this.props;
     const { group, submitted } = this.state;
     const { alert } = this.props;
+    let {imagePreviewUrl} = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<img src={imagePreviewUrl} class="new-group-img" />);
+    } else {
+      $imagePreview = (<img src="/images/ogorkowa.jpg" class="new-group-img" />);
+    }
+
 
     if(isLoading) {
       return <p>Loading ...</p>;
@@ -91,14 +117,14 @@ class CreateGroup extends React.Component {
 			<hr />
 			<div class="row profile-changes">
 				<div class="col-md-5 ">
-					<img src="/images/ogorkowa.jpg" class="new-group-img" />
+          {$imagePreview}
 					<div class="margin-top">
 						<form>
-							<label for="file" class="file-label">
-							<i class="fas fa-upload"></i>
-							<span id="file-span">  Wybierz Zdjęcie z Dysku </span>
+							<label for="file">
+              <input
+                type="file"
+                onChange={(e)=>this._handleImageChange(e)} />
 							</label>
-							<input type="file" id="file"/>
 						</form>
 					</div>
 				</div>

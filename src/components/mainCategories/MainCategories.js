@@ -3,6 +3,7 @@ import { mainCategoryActions } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
+import { config } from '../../helpers';
 
 class MainCategories extends React.Component {
 
@@ -62,7 +63,7 @@ class MainCategories extends React.Component {
                   {mainCategories &&
                     <div>
                       {mainCategories.category.map((cat, index) =>
-                        <div key={index}><Link to={`/subCategories/${cat.id}`} className="col-md-4">{cat.name}</Link></div>
+                        <div key={index}><Link to={`/subCategories/${cat.id}`} className="col-md-4"><img src={config.apiUrl + "/api/photo/" + cat.avatarUrl} class="image-responsive img-margin" alt={cat.name} /></Link></div>
                       )}
                     </div>
                   }
