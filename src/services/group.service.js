@@ -4,7 +4,8 @@ export const groupService = {
   getAll,
   getGroup,
   createGroup,
-  joinGroup
+  joinGroup,
+  leaveGroup
 };
 
 function getAll() {
@@ -45,7 +46,18 @@ function joinGroup(id) {
     body: JSON.stringify()
   };
 
-  return fetch(config.apiUrl + '/api/group/' + id, requestOptions)
+  return fetch(config.apiUrl + '/api/group/user/' + id, requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function leaveGroup(id) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify()
+  };
+
+  return fetch(config.apiUrl + '/api/group/user/' + id, requestOptions)
     .then(handleResponse, handleError);
 }
 

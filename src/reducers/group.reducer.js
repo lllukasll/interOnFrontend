@@ -43,6 +43,11 @@ export function groups(state = {}, action) {
         ...state,
         joined: true
       };
+    case groupConstants.LEAVEGROUP_SUCCESS:
+    return {
+      ...state,
+      left: true
+    };
     default:
       return state
     }

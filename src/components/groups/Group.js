@@ -13,10 +13,15 @@ class Group extends React.Component {
     };
 
     this.joinGroup = this.joinGroup.bind(this);
+    this.leaveGroup = this.leaveGroup.bind(this);
   }
 
   joinGroup() {
     this.props.dispatch(groupActions.joinGroup(this.props.id));
+  }
+
+  leaveGroup() {
+    this.props.dispatch(groupActions.leaveGroup(this.props.id));
   }
 
   componentDidMount() {
@@ -87,6 +92,9 @@ class Group extends React.Component {
                     <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-sign-out-alt"></i>
                     </button>
+                    <div class="dropdown-menu">
+                      <button type="button" onClick={this.leaveGroup}>Opuść grupę</button>
+                    </div>
                     <div class="btn">
                       <button type="button" onClick={this.joinGroup}>Dołącz do grupy</button>
                     </div>

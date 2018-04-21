@@ -6,7 +6,8 @@ export const groupActions = {
   getAll,
   getGroup,
   createGroup,
-  joinGroup
+  joinGroup,
+  leaveGroup
 }
 
 function getAll() {
@@ -87,7 +88,6 @@ function joinGroup(id) {
 
 function leaveGroup(id) {
   return dispatch => {
-    dispatch(request());
 
     groupService.leaveGroup(id)
       .then(
@@ -96,13 +96,10 @@ function leaveGroup(id) {
           dispatch(alertActions.success("Opuszczono grupę"));
         },
         error => {
-          dispatch(failure(error));
           dispatch(alertActions.error(error));
         }
       );
   };
 
-  function request() {return {type: groupConstants.JOINGROUP_REQUEST}}
-  function success() {return {type: groupConstants.JOINGROUP_SUCCESS}}
-  function failure(error) {return {type: groupConstants.JOINGROUP_FAILURE, error}}
+  function success() {return {type: groupConstants.LEAVEGROUP_SUCCESS}}
 }
