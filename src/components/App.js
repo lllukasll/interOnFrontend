@@ -10,6 +10,7 @@ import { Groups } from '../components/groups/Groups';
 import { Group } from '../components/groups/Group';
 import { CreateGroup } from '../components/groups/CreateGroup';
 import { MyProfile } from '../components/myProfile/MyProfile';
+import { UserProfile } from '../components/userProfile/UserProfile';
 import { ChangePassword } from '../components/myProfile/profileInfo/changePassword/ChangePassword';
 import {history} from '../helpers'
 
@@ -39,6 +40,7 @@ class App extends React.Component {
                 <Route path="/createGroup" component={CreateGroup} />
                 <Route path="/myProfile" component={MyProfile} />
                 <Route path="/changePassword" component={ChangePassword} />
+                <Route path="/userProfile/:id" component={UserProfile} />
                 </div>
             </div>
           </Router>

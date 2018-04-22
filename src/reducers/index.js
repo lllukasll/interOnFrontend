@@ -4,6 +4,7 @@ import { authentication } from './authentication.reducer';
 import { registration } from './registration.reducer';
 import { users } from './users.reducer';
 import { loggedUser } from './user.reducer';
+import { user } from './user.reducer';
 import { changePassword } from './user.reducer';
 import { mainCategories } from './mainCategory.reducer';
 import { subCategories } from './subCategory.reducer';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   authentication,
   registration,
   users,
+  user,
   loggedUser,
   changePassword,
   mainCategories,

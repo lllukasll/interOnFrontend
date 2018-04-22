@@ -1,5 +1,6 @@
 import React from 'react';
 import { groupActions } from '../../actions';
+import { alertActions } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
@@ -25,6 +26,7 @@ class Group extends React.Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(alertActions.clear());
     this.setState({isLoading: true});
     this.props.dispatch(groupActions.getGroup(this.props.id));
     this.setState({isLoading:false});
@@ -70,7 +72,7 @@ class Group extends React.Component {
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <span><a href="#" id="email">administrator</a></span>
+                      <span><Link to={"/userProfile/" + groups.group.userId}>administrator</Link></span>
                       <hr />
                     </div>
                   </div>
