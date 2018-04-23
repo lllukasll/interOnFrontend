@@ -4,6 +4,7 @@ export const groupService = {
   getAll,
   getGroup,
   createGroup,
+  uploadPhoto,
   joinGroup,
   leaveGroup
 };
@@ -34,8 +35,23 @@ function createGroup(group) {
     headers: {...authHeader(), 'Content-Type': 'application/json'},
     body: JSON.stringify(group)
   };
-
+  console.log("Create group request : " + requestOptions.body);
   return fetch(config.apiUrl + '/api/group', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function uploadPhoto(photo, id) {
+
+  const formData = new FormData();
+        formData.append('file', photo);
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {...authHeader()},
+    body: formData
+  };
+  console.log("Upload file request : " + requestOptions.body);
+  return fetch(config.apiUrl + '/api/group/' + id + '/photo', requestOptions)
     .then(handleResponse, handleError);
 }
 

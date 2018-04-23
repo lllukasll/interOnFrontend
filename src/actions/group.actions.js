@@ -6,6 +6,7 @@ export const groupActions = {
   getAll,
   getGroup,
   createGroup,
+  uploadPhoto,
   joinGroup,
   leaveGroup
 }
@@ -53,7 +54,7 @@ function createGroup(group) {
     groupService.createGroup(group)
       .then(
         group => {
-          dispatch(success());
+          dispatch(success(group));
           dispatch(alertActions.success("Poprawnie dodano grupę"));
         },
         error => {
@@ -66,6 +67,27 @@ function createGroup(group) {
   function request(group) {return {type: groupConstants.CREATEGROUP_REQUEST, group}}
   function success(group) {return {type: groupConstants.CREATEGROUP_SUCCESS, group}}
   function failure(error) {return {type: groupConstants.CREATEGROUP_FAILURE, error}}
+}
+
+function uploadPhoto(photo, id) {
+  return dispatch => {
+    dispatch(request(photo));
+
+    groupService.uploadPhoto(photo, id)
+      .then(
+        photo => {
+          dispatch(success(photo));
+        },
+        error => {
+          dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function request(photo) {return {type: groupConstants.UPLOADPHOTO_REQUEST, photo}}
+  function success(photo) {return {type: groupConstants.UPLOADPHOTO_SUCCESS, photo}}
+  function failure(error) {return {type: groupConstants.UPLOADPHOTO_FAILURE, error}}
 }
 
 function joinGroup(id) {

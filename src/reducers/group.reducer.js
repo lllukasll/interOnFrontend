@@ -32,7 +32,8 @@ export function groups(state = {}, action) {
       };
     case groupConstants.CREATEGROUP_SUCCESS:
       return {
-
+        created:true,
+        groupResponse: action.group
       };
     case groupConstants.CREATEGROUP_FAILURE:
       return {
@@ -48,7 +49,21 @@ export function groups(state = {}, action) {
       ...state,
       left: true
     };
+    case groupConstants.UPLOADPHOTO_REQUEST:
+      return { 
+        uploadingPhoto: true 
+      };
+    case groupConstants.UPLOADPHOTO_SUCCESS:
+      return {
+        uploadedPhoto:true,
+        photo: action.photo
+      };
+    case groupConstants.UPLOADPHOTO_FAILURE:
+      return {
+        error: action.error
+      };
     default:
       return state
     }
   }
+

@@ -3,6 +3,7 @@ import { groupActions } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
+import { config } from '../../helpers';
 
 class Groups extends React.Component {
   constructor() {
@@ -63,7 +64,7 @@ class Groups extends React.Component {
                         <div class="col-md-10 offset-md-1  group-content " key={index}>
                           <div class= "row">
                               <div class="col-md-4">
-                                <img src="./images/ogorkowa.jpg" alt="img" class="image-responsive group-image img-margin" />
+                                <img src={config.apiUrl + "/api/photo/" + group.avatarUrl} alt="img" class="image-responsive group-image img-margin" />
                               </div>
                             <div class="col-md-6 offset-md-1 group-description" >
                              <h3> {group.name}</h3>

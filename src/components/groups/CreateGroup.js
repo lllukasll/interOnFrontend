@@ -24,11 +24,14 @@ class CreateGroup extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
+    this._handleImageChange = this._handleImageChange.bind(this);
+    this.uploadPhoto = this.uploadPhoto.bind(this);
   }
 
   componentDidMount() {
     //this.props.dispatch(alertActions.clear());
     this.setState({isLoading: true});
+    this.setState({group: {nazwa: 'zasda'}});
     this.props.dispatch(subCategoryActions.getAll());
     this.setState({isLoading:false});
   }
@@ -46,7 +49,6 @@ class CreateGroup extends React.Component {
 
   _handleImageChange(e) {
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
 
@@ -56,7 +58,7 @@ class CreateGroup extends React.Component {
         imagePreviewUrl: reader.result
       });
     }
-
+    
     reader.readAsDataURL(file)
   }
 
@@ -80,11 +82,19 @@ class CreateGroup extends React.Component {
       event.preventDefault();
 
       this.setState({ submitted: true });
+
       const { group } = this.state;
+      const {groups} = this.props;
+      console.log(group);
       const { dispatch } = this.props;
       if (group.name && group.description && group.subcategories) {
           dispatch(groupActions.createGroup(group));
       }
+  }
+
+  uploadPhoto(id) {
+    const { file } = this.state;
+    this.props.dispatch(groupActions.uploadPhoto(file, id));
   }
 
   render() {
@@ -104,6 +114,15 @@ class CreateGroup extends React.Component {
 
     if(isLoading) {
       return <p>Loading ...</p>;
+    }
+
+    if(!groups.creating && groups.groupResponse) {
+      console.log("Created group : " + groups.groupResponse.result.id);
+      this.uploadPhoto(groups.groupResponse.result.id);
+    }
+
+    if(groups.uploadingPhoto) {
+      return <p>Uploading Photo ...</p>;
     }
 
     return (
