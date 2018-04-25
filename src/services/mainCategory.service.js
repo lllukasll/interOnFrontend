@@ -1,7 +1,8 @@
 import { authHeader, config } from '../helpers';
 
 export const mainCategoryService = {
-  getAll
+  getAll,
+  createMainCategory
 };
 
 function getAll() {
@@ -10,6 +11,17 @@ function getAll() {
     headers: authHeader()
   };
 
+  return fetch(config.apiUrl + '/api/maincategories', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function createMainCategory(mainCategory) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(mainCategory)
+  };
+  console.log("Create maincategory request : " + requestOptions.body);
   return fetch(config.apiUrl + '/api/maincategories', requestOptions)
     .then(handleResponse, handleError);
 }

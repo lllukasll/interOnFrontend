@@ -12,6 +12,8 @@ import { CreateGroup } from '../components/groups/CreateGroup';
 import { MyProfile } from '../components/myProfile/MyProfile';
 import { UserProfile } from '../components/userProfile/UserProfile';
 import { ChangePassword } from '../components/myProfile/profileInfo/changePassword/ChangePassword';
+import { CreateSubcategory} from '../components/subCategories/createSubcategory/CreateSubcategory';
+import { CreateMainCategory} from '../components/mainCategories/createMainCategory/CreateMainCategory';
 import {history} from '../helpers'
 
 import {connect} from 'react-redux';
@@ -41,6 +43,8 @@ class App extends React.Component {
                 <Route path="/myProfile" component={MyProfile} />
                 <Route path="/changePassword" component={ChangePassword} />
                 <Route path="/userProfile/:id" component={UserProfile} />
+                <Route path="/createSubcategory" component={CreateSubcategory} />
+                <Route path="/createMainCategory" component={CreateMainCategory} />
                 </div>
             </div>
           </Router>

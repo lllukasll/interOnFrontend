@@ -2,6 +2,18 @@ import { mainCategoryConstants } from '../constants';
 
 export function mainCategories(state = {}, action) {
   switch (action.type) {
+    case mainCategoryConstants.CREATEMAINCATEGORY_REQUEST:
+    return {
+      creating: true
+    }
+    case mainCategoryConstants.CREATEMAINCATEGORY_SUCCESS:
+    return {
+     
+    }
+    case mainCategoryConstants.CREATEMAINCATEGORY_FAILURE: 
+      return{
+        error: action.error
+    }
     case mainCategoryConstants.GETALL_REQUEST:
       return {
         loading: true

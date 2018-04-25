@@ -26,6 +26,18 @@ export function subCategories(state = {}, action) {
       return {
         error: action.error
       };
+    case subCategoryConstants.CREATESUBCATEGORY_REQUEST:
+      return {
+        creating: true
+      };
+    case subCategoryConstants.CREATESUBCATEGORY_SUCCESS:
+      return {
+        
+      };
+    case subCategoryConstants.CREATESUBCATEGORY_FAILURE:
+      return {
+        error: action.error
+      };
     default:
       return state
     }

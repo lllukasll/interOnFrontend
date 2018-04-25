@@ -2,7 +2,8 @@ import { authHeader, config } from '../helpers';
 
 export const subCategoryService = {
   getAllForId,
-  getAll
+  getAll,
+  createSubcategory
 };
 
 function getAllForId(id) {
@@ -22,6 +23,17 @@ function getAll() {
   };
 
   return fetch(config.apiUrl + '/api/subcategories', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function createSubcategory(subcategory) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(subcategory)
+  };
+  console.log("Create subcategory request : " + requestOptions.body);
+  return fetch(config.apiUrl + '/api/maincategories/1/subcategories', requestOptions)
     .then(handleResponse, handleError);
 }
 
