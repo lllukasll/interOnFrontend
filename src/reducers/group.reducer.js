@@ -37,7 +37,7 @@ export function groups(state = {}, action) {
       };
     case groupConstants.CREATEGROUP_FAILURE:
       return {
-
+        error: action.error
       };
     case groupConstants.JOINGROUP_SUCCESS:
       return {
@@ -55,6 +55,7 @@ export function groups(state = {}, action) {
       };
     case groupConstants.UPLOADPHOTO_SUCCESS:
       return {
+        created:true,
         uploadedPhoto:true,
         photo: action.photo
       };

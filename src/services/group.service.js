@@ -41,7 +41,6 @@ function createGroup(group) {
 }
 
 function uploadPhoto(photo, id) {
-
   const formData = new FormData();
         formData.append('file', photo);
 

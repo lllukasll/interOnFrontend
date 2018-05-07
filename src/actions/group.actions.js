@@ -59,7 +59,7 @@ function createGroup(group) {
         },
         error => {
           dispatch(failure(error));
-          dispatch(alertActions.error(error));
+          //dispatch(alertActions.error(error));
         }
       );
   };

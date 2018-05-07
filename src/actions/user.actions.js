@@ -49,8 +49,8 @@ function register(user) {
       .then(
         user => {
           dispatch(success());
-          history.push('/login');
-          dispatch(alertActions.success("Zarejestrowano poprawnie"));
+          history.push('/');
+          dispatch(alertActions.success("Zarejestrowano poprawnie. W celu zalogowanie należy potwierdzić email"));
         },
         error => {
           dispatch(failure(error));

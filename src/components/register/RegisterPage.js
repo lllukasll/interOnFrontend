@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import FormValidator from '../../helpers/FormValidator.js';
 
 import { userActions } from '../../actions';
 import { alertActions } from '../../actions';
@@ -9,22 +10,119 @@ class RegisterPage extends React.Component {
   constructor(props) {
         super(props);
 
-        this.state = {
-            user: {
-                name: '',
-                surname: '',
-                username: '',
-                email: '',
-                password: ''
+        this.validator = new FormValidator([
+            {
+                field: 'name',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Imię jest wymagane'
             },
+            {
+                field: 'name',
+                method: 'isLength',
+                args: [{min: 0, max: 50}],
+                validWhen: true,
+                message: 'Imię jest za długie'
+            },
+            {
+                field: 'surname',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Nazwisko jest wymagane'
+            },
+            {
+                field: 'surname',
+                method: 'isLength',
+                args: [{min: 0, max: 50}],
+                validWhen: true,
+                message: 'Nazwisko jest za długie'
+            },
+            {
+                field: 'username',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Login jest wymagany'
+            },
+            {
+                field: 'username',
+                method: 'isLength',
+                args: [{min: 0, max: 50}],
+                validWhen: true,
+                message: 'Login jest za długi'
+            },
+            {
+                field: 'email',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Email jest wymagany'
+            },
+            {
+                field: 'email',
+                method: 'isEmail',
+                validWhen: true,
+                message: 'To nie jest email'
+            },
+            {
+                field: 'password',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Hasło jest wymagane'
+            },
+            {
+                field: 'password',
+                method: 'isLength',
+                args: [{min: 6, max: 50}],
+                validWhen: true,
+                message: 'Złe hasło (minimum 6 znaków max 50)'
+            },
+            {
+                field: 'password2',
+                method: 'isEmpty',
+                validWhen: false,
+                message: 'Hasło jest wymagane'
+            },
+            {
+                field: 'password2',
+                method: 'isLength',
+                args: [{min: 6, max: 50}],
+                validWhen: true,
+                message: 'Złe hasło (minimum 6 znaków max 50)'
+            },
+            { 
+                field: 'password2', 
+                method: this.passwordMatch,
+                validWhen: true, 
+                message: 'Hasła się nie zgadzają'
+            },
+            { 
+                field: 'checkbox', 
+                method: this.checkboxValue,
+                validWhen: false, 
+                message: 'Musisz przeczytać regulamin'
+            }
+        ]);
+
+        this.state = {
+            name: '',
+            surname: '',
+            username: '',
+            email: '',
+            password: '',
             password2: '',
-            submitted: false
+            checkbox: false,
+            validation: this.validator.valid()
         };
+
+        this.submitted = false;
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateInputValue = this.updateInputValue.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
     }
+
+    passwordMatch = (confirmation, state) => (state.password === confirmation)
+    checkboxValue = (checkbox, state) => (state.checkbox === false ? true : false)
 
     updateInputValue(event){
       const { password2 } = this.state;
@@ -34,32 +132,44 @@ class RegisterPage extends React.Component {
     }
 
     handleChange(event) {
-        const { name, value } = event.target;
-        const { user } = this.state;
+        event.preventDefault();
+
         this.setState({
-            user: {
-                ...user,
-                [name]: value
-            }
+             [event.target.name]: event.target.value,
+        });
+    }
+
+    handleCheckBoxChange(event) {
+        this.setState({
+             checkbox: !this.state.checkbox,
         });
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        this.setState({ submitted: true });
-        const { user, password2 } = this.state;
-        const { dispatch } = this.props;
-        if (user.name && user.surname && user.username && user.email && user.password && user.password == password2) {
+        const validation = this.validator.validate(this.state);
+        this.setState({ validation });
+        this.submitted = true;
+        
+        if(validation.isValid) {
+            var user = {
+                name: this.state.name,
+                surname: this.state.surname,
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+            }
+            const { dispatch } = this.props;
             dispatch(userActions.register(user));
-        }
-
-        if(user.password != password2) {
-          dispatch(alertActions.error("Hasła nie są takie same"))
         }
     }
 
     render() {
+        let validation = this.submitted ?
+                            this.validator.validate(this.state) :
+                            this.state.validation
+
         const { registering  } = this.props;
         const { user, submitted, password2 } = this.state;
         const { alert } = this.props;
@@ -71,46 +181,34 @@ class RegisterPage extends React.Component {
                   <div className="row forms">
                     <form className="margins-form" name="form" onSubmit={this.handleSubmit}>
                       <h3> Dołącz do inter-on </h3>
-                      <div className={'form-group' + (submitted && !user.name ? ' has-error' : '')}>
-                          <input type="text" className="form-control margin-top" name="name" placeholder="Imię" value={user.name} onChange={this.handleChange} />
-                          {submitted && !user.name &&
-                              <div className="help-block">Imię jest wymagane</div>
-                          }
+                      <div className={'form-group ' + validation.name.isInvalid && ' has-error'}>
+                          <input type="text" className="form-control margin-top " name="name" placeholder="Imię" onChange={this.handleChange} />
+                          <span className="help-block">{validation.name.message}</span>
                       </div>
-                      <div className={'form-group' + (submitted && !user.surname ? ' has-error' : '')}>
-                          <input type="text" className="form-control margin-top" name="surname" placeholder="Nazwisko" value={user.surname} onChange={this.handleChange} />
-                          {submitted && !user.surname &&
-                              <div className="help-block">Nazwisko</div>
-                          }
+                      <div className={'form-group' + validation.surname.isInvalid && ' has-error'}>
+                          <input type="text" className="form-control margin-top" name="surname" placeholder="Nazwisko" onChange={this.handleChange} />
+                          <span className="help-block">{validation.surname.message}</span>
                       </div>
-                      <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                          <input type="text" className="form-control margin-top" name="username" placeholder="Login" value={user.username} onChange={this.handleChange} />
-                          {submitted && !user.username &&
-                              <div className="help-block">Login jest wymagany</div>
-                          }
+                      <div className={'form-group' + validation.username.isInvalid && ' has-error'}>
+                          <input type="text" className="form-control margin-top" name="username" placeholder="Login" onChange={this.handleChange} />
+                          <span className="help-block">{validation.username.message}</span>
                       </div>
-                      <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
-                          <input type="text" className="form-control margin-top" name="email" aria-describedby="emailHelp" placeholder="Adres E-mail" value={user.email} onChange={this.handleChange} />
-                          {submitted && !user.email &&
-                              <div className="help-block">Email jest wymagany</div>
-                          }
+                      <div className={'form-group' + validation.email.isInvalid && ' has-error'}>
+                          <input type="text" className="form-control margin-top" name="email" aria-describedby="emailHelp" placeholder="Adres E-mail"  onChange={this.handleChange} />
+                          <span className="help-block">{validation.email.message}</span>
                       </div>
-                      <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                          <input type="password" className="form-control margin-top" name="password" placeholder="Hasło" value={user.password} onChange={this.handleChange} />
-                          {submitted && !user.password &&
-                              <div className="help-block">Hasło jest wymagane</div>
-                          }
+                      <div className={'form-group' + validation.password.isInvalid && ' has-error'}>
+                          <input type="password" className="form-control margin-top" name="password" placeholder="Hasło" onChange={this.handleChange} />
+                          <span className="help-block">{validation.password.message}</span>
                       </div>
-                      <div className={'form-group' + (submitted && !password2 ? ' has-error' : '')}>
-                          <input type="password" className="form-control margin-top" name="password2" placeholder="Powtórz Hasło" value={password2} onChange={this.updateInputValue} />
-                          {submitted && !password2 &&
-                              <div className="help-block">Hasło jest wymagane</div>
-                          }
+                      <div className={'form-group' + validation.password2.isInvalid && ' has-error'}>
+                          <input type="password" className="form-control margin-top" name="password2" placeholder="Powtórz Hasło" onChange={this.updateInputValue} />
+                          <span className="help-block">{validation.password2.message}</span>
                       </div>
                       <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="regulamin-check" />
-                        <label className="form-check-label regulamin" for="regulamin-check">Zapoznałem się z <a href="#">regulaminem</a> serwisu</label>
-
+                        <input type="checkbox" className="form-check-input" checked={this.state.checkbox} id="regulamin-check" name="checkbox" onChange={this.handleCheckBoxChange}/>
+                        <label className="form-check-label regulamin" for="regulamin-check" >Zapoznałem się z <a href="#">regulaminem</a> serwisu</label> <br />
+                         <span className="help-block">{validation.checkbox.message}</span>
                       </div>
                       <div className="form-group">
                           <button className="btn btn-secondary">Zarejestruj się</button>
