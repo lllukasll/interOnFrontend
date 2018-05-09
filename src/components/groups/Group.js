@@ -109,6 +109,7 @@ class Group extends React.Component {
     return (
 
       <section className="container">
+        
         <div className="row ">
 
           <SideBar />
@@ -145,7 +146,7 @@ class Group extends React.Component {
               </div>
 
               <div class="row" >
-                <div class="col-md-5 offset-md-7 ">
+                <div class="col-md-8 offset-md-4 ">
                   <div class="btn-group dropright">
                     <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightEvents" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Wydarzenia Grupy
@@ -160,12 +161,13 @@ class Group extends React.Component {
                       <i class="fas fa-sign-out-alt"></i>
                     </button>
                     <div class="dropdown-menu">
-                      <button type="button" onClick={this.leaveGroup}>Opuść grupę</button>
-                    </div>
-                    <div class="btn">
-                      <button type="button" onClick={this.joinGroup}>Dołącz do grupy</button>
+                      <button type="button" onClick={this.leaveGroup} className="dropdown-item pointer-hand">Opuść grupę</button>
                     </div>
                 </div>
+                
+                    <div class="btn">
+                      <button type="button" class="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
+                    </div>
               </div>
             </div>
               {alert.message &&

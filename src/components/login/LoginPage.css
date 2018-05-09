@@ -138,6 +138,7 @@ margin-bottom: 0px;
 
 .margins-form{
   margin: auto;
+  width: 70%;
 }
 
 #forgotten-password a{
@@ -319,6 +320,7 @@ max-width: 500px;
 
 .group-photo{
     height: 200px;
+    max-width: 200px;
     border-radius: 3px;
     border: 2px solid black;
     box-shadow: 1px 1px rgba(0,0,0,0.5);
@@ -426,11 +428,22 @@ max-width: 500px;
   margin-right: 10px;
 }
 .new-group-img{
-    max-width: 160px;
+    width: 200px;
+    height: 200px; 
     border-radius: 2px;
-    margin-left: 50px;
-
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: fill;
 }
+
+.choose-group-photo{
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .f-right{
   float: right;
   margin-top: 30px;
@@ -533,4 +546,33 @@ max-width: 500px;
 }
 .profile-buttons:hover{
       background-color: rgba(136,52,147,0.9);
+}
+
+.check-mail-content{
+  text-align: center;
+}
+
+.check-mail-content-text{
+  margin-top: 20px;
+}
+
+.check-mail-content-link{
+  margin-bottom: 20px;
+}
+
+.check-mail-content-link-l{
+  color: #883493;
+}
+
+.my-form-error{
+  border: 1px solid red;
+}
+
+.pointer-hand{
+  cursor: pointer;
+}
+
+.join-group-btn{
+  background-color: rgb(136,52,147);
+  opacity: 0.85;
 }

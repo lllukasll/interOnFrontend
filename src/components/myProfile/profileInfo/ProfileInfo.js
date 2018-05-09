@@ -43,12 +43,6 @@ class ProfileInfo extends React.Component {
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <span>Data urodzenia: {loggedUser.loggedUserData && loggedUser.loggedUserData.birthdate}</span>
-                            <hr />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
                              <Link to="/changeAvatar"><button type="button" class="btn btn-secondary">Zmień Avatar</button></Link>
                             <Link to="/changePassword"><button type="button" class="btn btn-secondary">Zmień Hasło</button></Link>
                         </div>

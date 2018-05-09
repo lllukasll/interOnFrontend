@@ -52,13 +52,13 @@ class LoginPage extends React.Component {
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <input type="text" className="form-control margin-top" aria-describedby="emailHelp" placeholder="Login" name="username" value={username} onChange={this.handleChange} />
                         {submitted && !username &&
-                            <div className="help-block">Login jest wymagany</div>
+                            <div style={{color: 'red'}} className="help-block">Login jest wymagany</div>
                         }
                     </div>
                     <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
                         <input type="password" className="form-control margin-top" aria-describedby="emailHelp" placeholder="Hasło" name="password" value={password} onChange={this.handleChange} />
                         {submitted && !password &&
-                            <div className="help-block">Hasło jest wymagane</div>
+                            <div style={{color: 'red'}} className="help-block">Hasło jest wymagane</div>
                         }
                     </div>
                     <a href="#"> <small id="emailHelp" className="form-text text-muted">Zapomniałem Hasła</small></a>
@@ -69,7 +69,7 @@ class LoginPage extends React.Component {
                         }
 
                         {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                            <div style={{marginTop: '10px'}} className={`alert ${alert.type}`}>{alert.message}</div>
                         }
                     </div>
                   </form>

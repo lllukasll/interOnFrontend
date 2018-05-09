@@ -7,6 +7,7 @@ import SideBar from '../common/sideBar/SideBar';
 import { subCategoryActions } from '../../actions';
 import { alertActions } from '../../actions';
 import FormValidator from '../../helpers/FormValidator.js';
+import { history } from '../../helpers';
 
 class CreateGroup extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class CreateGroup extends React.Component {
           method: 'isLength',
           args: [{min: 0, max: 50}],
           validWhen: true,
-          message: 'Nazwa jest za długia'
+          message: 'Nazwa jest za długia (max 50 znaków)'
       },
       {
           field: 'description',
@@ -37,7 +38,7 @@ class CreateGroup extends React.Component {
           method: 'isLength',
           args: [{min: 0, max: 250}],
           validWhen: true,
-          message: 'Opis jest za długi'
+          message: 'Opis jest za długi (max 250 znaków)'
       },
       {
           field: 'fileChoosen',
@@ -63,6 +64,8 @@ class CreateGroup extends React.Component {
       imagePreviewUrl: '',
       fileChoosen: false,
       categoryChoosen: false,
+
+      createdGroupId: '',
       validation: this.validator.valid()
     };
 
@@ -98,15 +101,24 @@ class CreateGroup extends React.Component {
     let reader = new FileReader();
     let file = e.target.files[0];
 
-    reader.onloadend = () => {
+    if(file && file.type.match('image.*'))
+    {
+        reader.onloadend = () => {
+        this.setState({
+          file: file,
+          imagePreviewUrl: reader.result,
+          fileChoosen: true
+        });
+      }
+      reader.readAsDataURL(file)
+    }else{
       this.setState({
-        file: file,
-        imagePreviewUrl: reader.result,
-        fileChoosen: true
-      });
+        file: '',
+        imagePreviewUrl: '',
+        fileChoosen: false,
+      })
     }
-    
-    reader.readAsDataURL(file)
+      
   }
 
   updateInputValue(event){
@@ -147,6 +159,9 @@ class CreateGroup extends React.Component {
   uploadPhoto(id) {
     const { file } = this.state;
     this.props.dispatch(groupActions.uploadPhoto(file, id));
+    this.setState({
+      createdGroupId: id
+    })
   }
 
   render() {
@@ -165,7 +180,7 @@ class CreateGroup extends React.Component {
     if (imagePreviewUrl) {
       $imagePreview = (<img src={imagePreviewUrl} class="new-group-img" />);
     } else {
-      $imagePreview = (<img src="/images/ogorkowa.jpg" class="new-group-img" />);
+      $imagePreview = (<img src="/images/placeholder.png" class="new-group-img" />);
     }
 
 
@@ -181,6 +196,10 @@ class CreateGroup extends React.Component {
       return <p>Uploading Photo ...</p>;
     }
 
+    if(groups.uploadedPhoto) {
+      history.push("/group/" + this.state.createdGroupId);
+    }
+
     return (
       <section class="container margin-top main">
 	<div class="row ">
@@ -194,15 +213,15 @@ class CreateGroup extends React.Component {
 				<div class="col-md-5 ">
           {$imagePreview}
 					<div class="margin-top">
-						<form>
-							<label for="file">
+						<form className="choose-group-photo">
+							<label for="file" >
               <input
                 type="file"
                 onChange={(e)=>this._handleImageChange(e)} />
 							</label>
 						</form>
 					</div>
-          <span className="help-block">{validation.fileChoosen.message}</span>
+          <span style={{color: 'red'}}  className="help-block">{validation.fileChoosen.message}</span>
 				</div>
 
 			 <div class="col-md-7 ">
@@ -212,7 +231,7 @@ class CreateGroup extends React.Component {
 				<form name="form" onSubmit={this.handleSubmit}>
           <div className={'form-group' + validation.name.isInvalid && ' has-error'}>
             <input type="text" class="form-control margin-top " name="name" onChange={this.handleChange} placeholder="Nazwa" />
-            <span className="help-block">{validation.name.message}</span>
+            <span style={{color: 'red'}}  className="help-block">{validation.name.message}</span>
           </div>
           <div>
             {subCategories &&
@@ -223,16 +242,13 @@ class CreateGroup extends React.Component {
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   )}
                 </select>
-                {submitted && !group.subcategories &&
-                    <div className="help-block">Nazwa jest wymagana</div>
-                }
               </div>
             }
-            <span className="help-block">{validation.categoryChoosen.message}</span>
+            <span style={{color: 'red'}}  className="help-block">{validation.categoryChoosen.message}</span>
           </div>
           <div className={'form-group' + validation.description.isInvalid && ' has-error'}>
             <textarea class="form-control margin-top" rows="3" name="description" onChange={this.handleChange} placeholder="Opis"></textarea>
-            <span className="help-block">{validation.description.message}</span>
+            <span style={{color: 'red'}}  className="help-block">{validation.description.message}</span>
           </div>
           <button class="btn btn-secondary f-right ">Utwórz grupę</button>
           {groups.creating &&

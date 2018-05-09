@@ -47,10 +47,6 @@ class HomePage extends React.Component {
        return (
          <div>
            
-          {alert.message &&
-              <div className={`alert ${alert.type}`}>{alert.message}</div>
-          }
-
           { loggedIn ? userContent : guestContent}
 
          </div>

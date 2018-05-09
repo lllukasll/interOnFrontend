@@ -49,12 +49,10 @@ function register(user) {
       .then(
         user => {
           dispatch(success());
-          history.push('/');
-          dispatch(alertActions.success("Zarejestrowano poprawnie. W celu zalogowanie należy potwierdzić email"));
+          history.push('/checkMail');
         },
         error => {
           dispatch(failure(error));
-          dispatch(alertActions.error(error));
         }
       );
   };

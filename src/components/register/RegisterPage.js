@@ -19,6 +19,13 @@ class RegisterPage extends React.Component {
             },
             {
                 field: 'name',
+                method: 'isAlpha',
+                args: ['pl-PL'],
+                validWhen: true,
+                message: 'Niedozwolone znaki'
+            },
+            {
+                field: 'name',
                 method: 'isLength',
                 args: [{min: 0, max: 50}],
                 validWhen: true,
@@ -29,6 +36,13 @@ class RegisterPage extends React.Component {
                 method: 'isEmpty',
                 validWhen: false,
                 message: 'Nazwisko jest wymagane'
+            },
+            {
+                field: 'surname',
+                method: 'isAlpha',
+                args: ['pl-PL'],
+                validWhen: true,
+                message: 'Niedozwolone znaki'
             },
             {
                 field: 'surname',
@@ -60,7 +74,7 @@ class RegisterPage extends React.Component {
                 field: 'email',
                 method: 'isEmail',
                 validWhen: true,
-                message: 'To nie jest email'
+                message: 'Nieprawidłowy format adresu email'
             },
             {
                 field: 'password',
@@ -73,7 +87,7 @@ class RegisterPage extends React.Component {
                 method: 'isLength',
                 args: [{min: 6, max: 50}],
                 validWhen: true,
-                message: 'Złe hasło (minimum 6 znaków max 50)'
+                message: 'Nieprawidłowa długość hasła (min 6 - max 50 znaków)'
             },
             {
                 field: 'password2',
@@ -86,7 +100,7 @@ class RegisterPage extends React.Component {
                 method: 'isLength',
                 args: [{min: 6, max: 50}],
                 validWhen: true,
-                message: 'Złe hasło (minimum 6 znaków max 50)'
+                message: 'Nieprawidłowa długość hasła (min 6 - max 50 znaków)'
             },
             { 
                 field: 'password2', 
@@ -98,7 +112,7 @@ class RegisterPage extends React.Component {
                 field: 'checkbox', 
                 method: this.checkboxValue,
                 validWhen: false, 
-                message: 'Musisz przeczytać regulamin'
+                message: 'Musisz najpierw zaakceptować regulamin'
             }
         ]);
 
@@ -183,33 +197,33 @@ class RegisterPage extends React.Component {
                       <h3> Dołącz do inter-on </h3>
                       <div className={'form-group ' + validation.name.isInvalid && ' has-error'}>
                           <input type="text" className="form-control margin-top " name="name" placeholder="Imię" onChange={this.handleChange} />
-                          <span className="help-block">{validation.name.message}</span>
+                          <span style={{color: 'red'}}  className="help-block">{validation.name.message}</span>
                       </div>
                       <div className={'form-group' + validation.surname.isInvalid && ' has-error'}>
                           <input type="text" className="form-control margin-top" name="surname" placeholder="Nazwisko" onChange={this.handleChange} />
-                          <span className="help-block">{validation.surname.message}</span>
+                          <span style={{color: 'red'}}  className="help-block">{validation.surname.message}</span>
                       </div>
-                      <div className={'form-group' + validation.username.isInvalid && ' has-error'}>
+                      <div className={'form-group ' + validation.username.isInvalid && ' has-error'}>
                           <input type="text" className="form-control margin-top" name="username" placeholder="Login" onChange={this.handleChange} />
-                          <span className="help-block">{validation.username.message}</span>
+                          <span style={{color: 'red'}}  className="help-block">{validation.username.message}</span>
                       </div>
-                      <div className={'form-group' + validation.email.isInvalid && ' has-error'}>
+                      <div className={'form-group has-error' + validation.email.isInvalid && ' has-error'}>
                           <input type="text" className="form-control margin-top" name="email" aria-describedby="emailHelp" placeholder="Adres E-mail"  onChange={this.handleChange} />
-                          <span className="help-block">{validation.email.message}</span>
+                          <div style={{color: 'red'}} className="help-block">{validation.email.message}</div>
                       </div>
                       <div className={'form-group' + validation.password.isInvalid && ' has-error'}>
                           <input type="password" className="form-control margin-top" name="password" placeholder="Hasło" onChange={this.handleChange} />
-                          <span className="help-block">{validation.password.message}</span>
+                          <span style={{color: 'red'}} className="help-block">{validation.password.message}</span>
                       </div>
                       <div className={'form-group' + validation.password2.isInvalid && ' has-error'}>
                           <input type="password" className="form-control margin-top" name="password2" placeholder="Powtórz Hasło" onChange={this.updateInputValue} />
-                          <span className="help-block">{validation.password2.message}</span>
+                          <span style={{color: 'red'}}  className="help-block">{validation.password2.message}</span>
                       </div>
                       <div className="form-check">
                         <input type="checkbox" className="form-check-input" checked={this.state.checkbox} id="regulamin-check" name="checkbox" onChange={this.handleCheckBoxChange}/>
-                        <label className="form-check-label regulamin" for="regulamin-check" >Zapoznałem się z <a href="#">regulaminem</a> serwisu</label> <br />
-                         <span className="help-block">{validation.checkbox.message}</span>
+                        <label className="form-check-label regulamin" for="regulamin-check" >Zapoznałem się z <a href="#">regulaminem</a> serwisu</label>
                       </div>
+                      <span style={{color: 'red'}}  className="help-block">{validation.checkbox.message}</span>
                       <div className="form-group">
                           <button className="btn btn-secondary">Zarejestruj się</button>
                           {registering &&

@@ -52,12 +52,6 @@ class UserProfile extends React.Component {
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span>Data urodzenia: {user.userData && user.userData.birthdate}</span>
-                                        <hr />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
                                 <a href="#"><button type="button" class="btn btn-secondary  profile-buttons">Wyślij Wiadomość</button></a>
                                 <a href="#"><button type="button" class="btn btn-secondary profile-buttons">Dodaj Do Znajomych</button></a>
                                 <a href="#"><button type="button" class="btn btn-secondary profile-buttons">Usuń Ze Znajomych</button></a>

@@ -11,9 +11,15 @@ class PostsList extends React.Component {
         super(props);
     }
 
+    getMyDateFormat(data){
+        var date = new Date(data);
+        var dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        return dateTime;
+    }
 
     render() {
-        
+        //var date = new Date('1995-12-17T03:24:00');
+
         return(
             <div>
                 {this.props.posts && 
@@ -23,8 +29,8 @@ class PostsList extends React.Component {
                             <div class="col-md-2">
                             <img src="/images/av.jpg" class="avatar" />
                             </div>
-                            <div class="col-md-3">
-                            <p class="font-weight-bold">{post.user.name} {post.user.surname}<br /> {post.createDateTime} </p>
+                            <div class="col-md-5">
+                            <p class="font-weight-bold">{post.user.name} {post.user.surname}<br /> {this.getMyDateFormat(post.createDateTime)} </p>
                             </div>
                         </div>
 

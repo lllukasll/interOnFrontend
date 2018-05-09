@@ -4,6 +4,7 @@ import { NavigationBar } from './common/navigationBar/NavigationBar.js';
 import { HomePage } from '../components/home';
 import { LoginPage } from '../components/login';
 import { RegisterPage } from '../components/register';
+import  CheckMail  from '../components/register/CheckMail';
 import { MainCategories } from '../components/mainCategories/MainCategories';
 import { SubCategories } from '../components/subCategories/SubCategories';
 import { Groups } from '../components/groups/Groups';
@@ -47,6 +48,7 @@ class App extends React.Component {
                 <Route path="/createSubcategory" component={CreateSubcategory} />
                 <Route path="/createMainCategory" component={CreateMainCategory} />
                 <Route path="/changeAvatar" component={ChangeAvatar} />
+                <Route path="/checkMail" component={CheckMail} />
                 </div>
             </div>
           </Router>
