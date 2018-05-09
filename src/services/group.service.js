@@ -61,7 +61,7 @@ function joinGroup(id) {
     body: JSON.stringify()
   };
 
-  return fetch(config.apiUrl + '/api/group/user/' + id, requestOptions)
+  return fetch(config.apiUrl + '/api/group/' + id + '/user', requestOptions)
     .then(handleResponse, handleError);
 }
 
@@ -72,7 +72,7 @@ function leaveGroup(id) {
     body: JSON.stringify()
   };
 
-  return fetch(config.apiUrl + '/api/group/user/' + id, requestOptions)
+  return fetch(config.apiUrl + '/api/group/' + id + '/user/', requestOptions)
     .then(handleResponse, handleError);
 }
 

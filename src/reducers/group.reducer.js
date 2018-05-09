@@ -15,6 +15,7 @@ export function groups(state = {}, action) {
         error: action.error
       };
     case groupConstants.GETGROUP_REQUEST:
+    console.log("Get Group Request sdadassad");
       return {
         loadingGroup: true
       };

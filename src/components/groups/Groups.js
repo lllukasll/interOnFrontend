@@ -64,7 +64,7 @@ class Groups extends React.Component {
                         <div class="col-md-10 offset-md-1  group-content " key={index}>
                           <div class= "row">
                               <div class="col-md-4">
-                                <img src={config.apiUrl + "/api/photo/" + group.avatarUrl} alt="img" class="image-responsive group-image img-margin" />
+                                <img src={config.apiUrl + "/api/photo/" + group.groupPhoto} alt="img" class="image-responsive group-image img-margin" />
                               </div>
                             <div class="col-md-6 offset-md-1 group-description" >
                              <h3> {group.name}</h3>

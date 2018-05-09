@@ -49,7 +49,7 @@ class ProfileInfo extends React.Component {
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="changeavatar.html"><button type="button" class="btn btn-secondary">Zmień Avatar</button></a>
+                             <Link to="/changeAvatar"><button type="button" class="btn btn-secondary">Zmień Avatar</button></Link>
                             <Link to="/changePassword"><button type="button" class="btn btn-secondary">Zmień Hasło</button></Link>
                         </div>
                     </div>

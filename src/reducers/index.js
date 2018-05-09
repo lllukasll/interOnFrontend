@@ -9,6 +9,8 @@ import { changePassword } from './user.reducer';
 import { mainCategories } from './mainCategory.reducer';
 import { subCategories } from './subCategory.reducer';
 import { groups } from './group.reducer';
+import { posts/*, getAllPosts */} from './post.reducer';
+import { comments} from './comment.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -21,6 +23,9 @@ const rootReducer = combineReducers({
   mainCategories,
   subCategories,
   groups,
+  posts,
+  comments,
+  //getAllPosts,
   alert
 });
 

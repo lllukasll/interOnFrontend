@@ -12,6 +12,7 @@ import { CreateGroup } from '../components/groups/CreateGroup';
 import { MyProfile } from '../components/myProfile/MyProfile';
 import { UserProfile } from '../components/userProfile/UserProfile';
 import { ChangePassword } from '../components/myProfile/profileInfo/changePassword/ChangePassword';
+import { ChangeAvatar } from '../components/myProfile/profileInfo/changeAvatar/ChangeAvatar';
 import { CreateSubcategory} from '../components/subCategories/createSubcategory/CreateSubcategory';
 import { CreateMainCategory} from '../components/mainCategories/createMainCategory/CreateMainCategory';
 import {history} from '../helpers'
@@ -45,6 +46,7 @@ class App extends React.Component {
                 <Route path="/userProfile/:id" component={UserProfile} />
                 <Route path="/createSubcategory" component={CreateSubcategory} />
                 <Route path="/createMainCategory" component={CreateMainCategory} />
+                <Route path="/changeAvatar" component={ChangeAvatar} />
                 </div>
             </div>
           </Router>

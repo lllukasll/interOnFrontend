@@ -174,7 +174,7 @@ class CreateGroup extends React.Component {
     }
 
     if(!groups.creating && groups.groupResponse) {
-      this.uploadPhoto(groups.groupResponse.result.id);
+      this.uploadPhoto(groups.groupResponse.id);
     }
 
     if(groups.uploadingPhoto) {
