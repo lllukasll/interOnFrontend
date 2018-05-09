@@ -120,7 +120,11 @@ class Group extends React.Component {
               <div class="row">
                 <div class="col-md-12">
                   <h1>{groups.group.name}</h1>
-                  <p id="group-name">Kategorie: {groups.group.subcategories}</p>
+                  <p id="group-name">Kategorie: {groups.group.subCategories.map((subcategory, index) => 
+                    <div style={{display: 'inline-block'}}key={subcategory.id}>
+                      <div> {subcategory.name} , </div>
+                    </div>
+                    )}</p>
                   <hr />
                 </div>
               </div>
@@ -136,9 +140,10 @@ class Group extends React.Component {
                       <a href='#'><span class="members" id="modalBtn"> Liczba członków: {groups.group.numberOfUsers} </span></a>
                     </div>
                   </div>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12">
-                      <span><Link to={"/userProfile/" + groups.group.userId}>administrator</Link></span>
+                      <span><Link className="check-mail-content-link-l" to={"/userProfile/" + groups.group.userId}>administrator</Link></span>
                       <hr />
                     </div>
                   </div>

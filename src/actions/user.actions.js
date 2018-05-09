@@ -53,6 +53,7 @@ function register(user) {
         },
         error => {
           dispatch(failure(error));
+          dispatch(alertActions.error(error));
         }
       );
   };
