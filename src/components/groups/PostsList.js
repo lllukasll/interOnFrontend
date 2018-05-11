@@ -9,6 +9,12 @@ import { CommentsList } from './CommentsList.js';
 class PostsList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            showComments: false
+        }
+
+        this.showCommentsClick = this.showCommentsClick.bind(this);
     }
 
     getMyDateFormat(data){
@@ -17,8 +23,20 @@ class PostsList extends React.Component {
         return dateTime;
     }
 
+    showCommentsClick(event){
+        event.preventDefault();
+        const {showComments} = this.state;
+
+        this.setState({
+            showComments: !this.state.showComments
+        })
+
+        console.log({showComments});
+    }
+
     render() {
-        //var date = new Date('1995-12-17T03:24:00');
+
+        const {showComments} = this.state;
 
         return(
             <div>
@@ -41,7 +59,8 @@ class PostsList extends React.Component {
                             </p>
                             </div>
                         </div>
-                        <CommentsList topComments={post.postComments} groupId={this.props.groupId} postId={post.id} post={post}/>
+                        <div><CommentsList topComments={post.postComments} groupId={this.props.groupId} postId={post.id} post={post}/></div>
+                        
                     </div>
                 )}
             </div>

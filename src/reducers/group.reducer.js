@@ -1,6 +1,22 @@
 import { groupConstants } from '../constants';
 
-export function groups(state = {}, action) {
+const initialState = {
+  loading: false,
+  groups: [],
+  error: [],
+  loadingGroup: false,
+  group: [],
+  creating: false,
+  created: false,
+  groupResponse: [],
+  joined: false,
+  left: false,
+  uploadingPhoto: false,
+  uploadedPhoto: false,
+  photo: []
+};
+
+export function groups(state = initialState, action) {
   switch (action.type) {
     case groupConstants.GETALL_REQUEST:
       return {

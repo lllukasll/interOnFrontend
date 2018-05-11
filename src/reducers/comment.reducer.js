@@ -1,6 +1,16 @@
 import { commentConstants } from '../constants';
 
-export function comments(state = {}, action) {
+const initialState = {
+  loading: false,
+  created: false,
+  isLoadingComments: false,
+  loadedComments: false,
+  comments: [],
+  loadingCommentsError: [],
+  error: null
+};
+
+export function comments(state = initialState, action) {
     switch (action.type) {
         case commentConstants.CREATEPOSTCOMMENT_REQUEST:
             return {

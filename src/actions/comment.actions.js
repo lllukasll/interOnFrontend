@@ -3,12 +3,12 @@ import { commentService } from '../services';
 
 export const commentActions = {
     addPostComment,
-    getPostComments,
+    //getPostComments,
     clear
 }
 
 function addPostComment(comment, groupId, postId) {
-  return dispatch => {
+  return function (dispatch) {
     dispatch(request(comment));
 
     commentService.addPostComment(comment, groupId, postId)
@@ -27,19 +27,21 @@ function addPostComment(comment, groupId, postId) {
   function failure(error) {return {type: commentConstants.CREATEPOSTCOMMENT_FAILURE, error}}
 }
 
-function getPostComments(groupId, postId) {
-  return dispatch => {
-    dispatch(request());
-
-    commentService.getPostComments(groupId, postId)
-      .then(
-        comments => {
-          dispatch(success(comments));
-        },
-        error => {
-          dispatch(failure(error));
-        }
+export function getPostComments(groupId, postId) {
+  return (dispatch) => {
+      dispatch(request())
+      
+        commentService.getPostComments(groupId, postId)
+        .then(
+          comments => {
+            dispatch(success(comments));
+          },
+          error => {
+            dispatch(failure(error));
+          }
       );
+
+      
   };
 
   function request() {return {type: commentConstants.GETPOSTCOMMENTS_REQUEST}}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FormValidator from '../../helpers/FormValidator.js';
-import { commentActions } from '../../actions';
+import { commentActions, getPostComments } from '../../actions';
 import { postActions } from '../../actions';
 import { connect } from 'react-redux';
 
@@ -54,9 +54,7 @@ class CreateCommentItem extends React.Component {
                 content: this.state.commentContent
             }
             const { dispatch } = this.props;
-            //console.log('GrupId ' + this.props.groupId + ' PostId ' + this.props.post.id + ' Comment ' + comment.content);
             dispatch(commentActions.addPostComment(comment, this.props.groupId, this.props.post.id));
-
         }
     }
 
@@ -71,8 +69,8 @@ class CreateCommentItem extends React.Component {
         if(comments.created)
         {
             console.log(this.props.post.id);
-            this.props.dispatch(postActions.getGroupPosts(this.props.groupId, this.props.post.id));
-            this.props.dispatch(commentActions.clear());
+            this.props.dispatch(getPostComments(this.props.groupId, this.props.post.id));
+            this.props.setSyncedToFalse();
         }
 
         return(

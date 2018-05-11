@@ -35,6 +35,8 @@ class Group extends React.Component {
     this.state = {
       postContent: '',
       isLoading: true,
+      userInGroup: false,
+      isAdmin: false,
       validation: this.validator.valid()
     };
 
@@ -44,25 +46,36 @@ class Group extends React.Component {
     this.leaveGroup = this.leaveGroup.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isUserInGroup = this.isUserInGroup.bind(this);
   }
 
   joinGroup(event) {
     event.preventDefault();
-    this.props.dispatch(groupActions.joinGroup(this.props.id));
+    this.props.dispatch(groupActions.joinGroup(this.props.id)).then(
+      () => this.props.dispatch(groupActions.getGroup(this.props.id))).then(
+        (group) => this.checkIfAdmin(this.props.groups.group.userId, this.props.loggedUser.loggedUserData.id)).then(
+        (group) => this.isUserInGroup(this.props.groups.group.users, this.props.loggedUser.loggedUserData.id));
   }
 
   leaveGroup(event) {
     event.preventDefault();
-    this.props.dispatch(groupActions.leaveGroup(this.props.id));
+    this.props.dispatch(groupActions.leaveGroup(this.props.id)).then(
+      () => this.props.dispatch(groupActions.getGroup(this.props.id))).then(
+        (group) => this.checkIfAdmin(this.props.groups.group.userId, this.props.loggedUser.loggedUserData.id)).then(
+        (group) => this.isUserInGroup(this.props.groups.group.users, this.props.loggedUser.loggedUserData.id));
   }
 
   componentDidMount() {
     this.props.dispatch(alertActions.clear());
     this.setState({isLoading: true});
-    this.props.dispatch(groupActions.getGroup(this.props.id));
+    this.props.dispatch(groupActions.getGroup(this.props.id)).then(
+        (group) => this.checkIfAdmin(this.props.groups.group.userId, this.props.loggedUser.loggedUserData.id)).then(
+        (group) => this.isUserInGroup(this.props.groups.group.users, this.props.loggedUser.loggedUserData.id));
+        
     this.props.dispatch(postActions.getGroupPosts(this.props.id));
     this.setState({isLoading:false});
   }
+
 
   handleChange(event) {
     event.preventDefault();
@@ -89,16 +102,55 @@ class Group extends React.Component {
 
   }
 
+  isUserInGroup(users, userId) {
+    console.log('Check if user in group');
+    this.setState({userInGroup:false});
+    return new Promise((resolve, reject) => {
+      users.forEach((element) => {
+      if(element.id === userId)
+      {
+        console.log('Check if user in group | ElementId : ' + element.id + ' UserId : ' + userId);
+        this.setState({userInGroup:true});
+        resolve();
+      } else {
+        this.setState({userInGroup:false});
+        console.log('User not in group');
+        reject();
+      }
+    });
+    });
+    
+  }
+
+  checkIfAdmin(adminId, userId) {
+    console.log('Check if user admin');
+    this.setState({isAdmin: false});
+    return new Promise((resolve, reject) => {
+      if(adminId === userId)
+      {
+        this.setState({isAdmin: true})
+        console.log('User is admin');
+        resolve();
+      } else {
+        this.setState({isAdmin: false})
+        console.log('User is not admin');
+        reject();
+      }
+    });
+    
+  }
+
+
   render() {
     let validation = this.submitted ?
                             this.validator.validate(this.state) :
                             this.state.validation
 
-    const { groups, posts, getAllPosts } = this.props;
-    const { isLoading } = this.state;
+    const { groups, posts, getAllPosts, loggedUser } = this.props;
+    const { isLoading, userInGroup, isAdmin } = this.state;
     const { alert } = this.props;
 
-    if(posts.created) {
+    if(this.props.posts.created) {
       this.props.dispatch(postActions.getGroupPosts(this.props.id));
     }
 
@@ -136,14 +188,14 @@ class Group extends React.Component {
                 <div class="col-md-7 ">
                   <div class="row">
                     <div class="col-md-12 members-a ">
-                      <p> {groups.group.description}</p>
+                      <p> {groups.group && groups.group.description}</p>
                       <a href='#'><span class="members" id="modalBtn"> Liczba członków: {groups.group.numberOfUsers} </span></a>
                     </div>
                   </div>
                   <hr />
                   <div class="row">
                     <div class="col-md-12">
-                      <span><Link className="check-mail-content-link-l" to={"/userProfile/" + groups.group.userId}>administrator</Link></span>
+                      <span><Link className="check-mail-content-link-l" to={"/userProfile/" + groups.group.userId}>{isAdmin ? (<div>Jestes adminem</div>) : (<div>administrator</div>)}</Link></span>
                       <hr />
                     </div>
                   </div>
@@ -161,18 +213,24 @@ class Group extends React.Component {
                       <a class="dropdown-item" href="#">Utwórz nowe wydarzenie</a>
                     </div>
                   </div>
-                  <div class="btn-group dropright">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                      <button type="button" onClick={this.leaveGroup} className="dropdown-item pointer-hand">Opuść grupę</button>
+                  {userInGroup ? 
+                  ( 
+                    <div class="btn-group dropright">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sign-out-alt"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <button type="button" onClick={this.leaveGroup} className="dropdown-item pointer-hand">Opuść grupę</button>
+                      </div>
                     </div>
-                </div>
-                
-                    <div class="btn">
-                      <button type="button" class="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
-                    </div>
+                  ) : 
+                  (
+                  <div class="btn">
+                    <button type="button" class="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
+                  </div>
+                  )}
+                  
+                   
               </div>
             </div>
               {alert.message &&
@@ -220,11 +278,12 @@ class Group extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    const { groups, posts, alert/*, getAllPosts */} = state;
+    const { groups, posts, alert, loggedUser} = state;
     return {
         groups,
         alert,
         posts,
+        loggedUser,
         //getAllPosts,
         id: ownProps.match.params.id
     };

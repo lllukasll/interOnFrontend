@@ -30,16 +30,21 @@ function getAll() {
 }
 
 function getGroup(id) {
-  return dispatch => {
-    dispatch(request());
-
-    groupService.getGroup(id)
-      .then(
-        group => dispatch(success(group)),
-        error => {
-          dispatch(failure(error));
-        }
-      );
+  return function (dispatch) {
+    return new Promise((resolve, reject) => {
+      dispatch(request());
+      groupService.getGroup(id)
+        .then(
+          group => {
+            dispatch(success(group));
+            resolve(group);
+          },
+          error => {
+            dispatch(failure(error));
+            reject(error);
+          }
+        );
+    });
   };
 
   function request() {return {type: groupConstants.GETGROUP_REQUEST}}
@@ -91,36 +96,42 @@ function uploadPhoto(photo, id) {
 }
 
 function joinGroup(id) {
-  return dispatch => {
-
-    groupService.joinGroup(id)
-      .then(
-        group => {
-          dispatch(success());
-          dispatch(alertActions.success("Dołączono do grupy"));
-        },
-        error => {
-          dispatch(alertActions.error(error));
-        }
-      );
+  return function (dispatch) {
+    return new Promise((resolve, reject) => {
+      groupService.joinGroup(id)
+        .then(
+          group => {
+            dispatch(success());
+            resolve();
+            dispatch(alertActions.success("Dołączono do grupy"));
+          },
+          error => {
+            dispatch(alertActions.error(error));
+            reject(error);
+          }
+        );
+    });
   };
 
   function success() {return {type: groupConstants.JOINGROUP_SUCCESS}}
 }
 
 function leaveGroup(id) {
-  return dispatch => {
-
+  return function (dispatch) {
+    return new Promise((resolve, reject) => {
     groupService.leaveGroup(id)
       .then(
         group => {
           dispatch(success());
+          resolve();
           dispatch(alertActions.success("Opuszczono grupę"));
         },
         error => {
           dispatch(alertActions.error(error));
+          reject(error);
         }
-      );
+        );
+    });
   };
 
   function success() {return {type: groupConstants.LEAVEGROUP_SUCCESS}}
