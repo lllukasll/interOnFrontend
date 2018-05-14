@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavigationBar } from './common/navigationBar/NavigationBar.js';
 import { HomePage } from '../components/home';
 import { LoginPage } from '../components/login';
@@ -10,21 +9,18 @@ import { SubCategories } from '../components/subCategories/SubCategories';
 import { Groups } from '../components/groups/Groups';
 import { Group } from '../components/groups/Group';
 import { CreateGroup } from '../components/groups/CreateGroup';
+import { EditGroup } from '../components/groups/EditGroup';
 import { MyProfile } from '../components/myProfile/MyProfile';
 import { UserProfile } from '../components/userProfile/UserProfile';
 import { ChangePassword } from '../components/myProfile/profileInfo/changePassword/ChangePassword';
 import { ChangeAvatar } from '../components/myProfile/profileInfo/changeAvatar/ChangeAvatar';
 import { CreateSubcategory} from '../components/subCategories/createSubcategory/CreateSubcategory';
 import { CreateMainCategory} from '../components/mainCategories/createMainCategory/CreateMainCategory';
+import Event from '../components/events/event/EventPage';
+import EventsList from '../components/events/eventsList/EventsListPage';
 import {history} from '../helpers'
 
-import {connect} from 'react-redux';
-
-import {
-  Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
 
 class App extends React.Component {
   render() {
@@ -42,6 +38,7 @@ class App extends React.Component {
                 <Route path="/groups" component={Groups} />
                 <Route path="/group/:id" component={Group} />
                 <Route path="/createGroup" component={CreateGroup} />
+                <Route path="/editGroup/:id" component={EditGroup} />
                 <Route path="/myProfile" component={MyProfile} />
                 <Route path="/changePassword" component={ChangePassword} />
                 <Route path="/userProfile/:id" component={UserProfile} />
@@ -49,6 +46,8 @@ class App extends React.Component {
                 <Route path="/createMainCategory" component={CreateMainCategory} />
                 <Route path="/changeAvatar" component={ChangeAvatar} />
                 <Route path="/checkMail" component={CheckMail} />
+                <Route path="/event" component={Event} />
+                <Route path="/events" component={EventsList} />
                 </div>
             </div>
           </Router>

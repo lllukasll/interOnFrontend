@@ -29,33 +29,32 @@ class UserProfile extends React.Component {
         <section className="container">
             <div className="row ">
                 <SideBar />
-                    <div class="col-md-9 content profile-changes">
-                        {user.loading ? (<em>Ładowanie profilu <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <div className="col-md-9 content profile-changes">
+                        {user.loading ? (<em>Ładowanie profilu <img alt="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         </em>) : 
                         (
-                            <div class="row profile-changes">
-                                <div class="col-md-4">
-                                <img src="/images/profilePhoto.jpg" class="profile-photo" />
+                            <div className="row profile-changes">
+                                <div className="col-md-4">
+                                <img alt="avatar" src="/images/profilePhoto.jpg" className="profile-photo" />
                             </div>
-                            <div class="col-md-8 ">
-                                <div class="row">
-                                    <div class="col-md-12 name  ">
+                            <div className="col-md-8 ">
+                                <div className="row">
+                                    <div className="col-md-12 name  ">
                                         <p id="name">{user.userData && user.userData.name} {user.userData && user.userData.surname}</p>
                                         <hr />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span>adres e-mail: <a href="#" id="email">{user.userData && user.userData.email}</a></span>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <span>adres e-mail: {user.userData && user.userData.email}</span>
                                         <hr />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                <a href="#"><button type="button" class="btn btn-secondary  profile-buttons">Wyślij Wiadomość</button></a>
-                                <a href="#"><button type="button" class="btn btn-secondary profile-buttons">Dodaj Do Znajomych</button></a>
-                                <a href="#"><button type="button" class="btn btn-secondary profile-buttons">Usuń Ze Znajomych</button></a>
-
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <button type="button" className="btn btn-secondary  profile-buttons">Wyślij Wiadomość</button>
+                                        <button type="button" className="btn btn-secondary profile-buttons">Dodaj Do Znajomych</button>
+                                        <button type="button" className="btn btn-secondary profile-buttons">Usuń Ze Znajomych</button>
                                     </div>
                                 </div>
                             </div>

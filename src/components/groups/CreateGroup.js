@@ -1,11 +1,8 @@
 import React from 'react';
 import { groupActions } from '../../actions';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
 import { subCategoryActions } from '../../actions';
-import { alertActions } from '../../actions';
 import FormValidator from '../../helpers/FormValidator.js';
 import { history } from '../../helpers';
 
@@ -122,7 +119,6 @@ class CreateGroup extends React.Component {
   }
 
   updateInputValue(event){
-    const { group } = this.state;
     var options = event.target.options;
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
@@ -173,14 +169,13 @@ class CreateGroup extends React.Component {
     const { subCategories } = this.props;
     const { groups  } = this.props;
     const { group, submitted } = this.state;
-    const { alert } = this.props;
 
     let {imagePreviewUrl} = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} class="new-group-img" />);
+      $imagePreview = (<img alt="placeholder" src={imagePreviewUrl} class="new-group-img" />);
     } else {
-      $imagePreview = (<img src="/images/placeholder.png" class="new-group-img" />);
+      $imagePreview = (<img alt="group" src="/images/placeholder.png" class="new-group-img" />);
     }
 
 
@@ -206,13 +201,13 @@ class CreateGroup extends React.Component {
 
 		<SideBar />
 
-		<div class="col-md-9 content profile-changes ">
+		<div className="col-md-9 content profile-changes ">
 			<h1> Utwórz nową grupę </h1>
 			<hr />
-			<div class="row profile-changes">
-				<div class="col-md-5 ">
+			<div className="row profile-changes">
+				<div className="col-md-5 ">
           {$imagePreview}
-					<div class="margin-top">
+					<div className="margin-top">
 						<form className="choose-group-photo">
 							<label for="file" >
               <input
@@ -224,19 +219,19 @@ class CreateGroup extends React.Component {
           <span style={{color: 'red'}}  className="help-block">{validation.fileChoosen.message}</span>
 				</div>
 
-			 <div class="col-md-7 ">
-       {subCategories.loadingAll ? (<em>Ładowanie kategorii <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+			 <div className="col-md-7 ">
+       {subCategories.loadingAll ? (<em>Ładowanie kategorii <img alt="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
        </em>) : (
          <div>
 				<form name="form" onSubmit={this.handleSubmit}>
           <div className={'form-group' + validation.name.isInvalid && ' has-error'}>
-            <input type="text" class="form-control margin-top " name="name" onChange={this.handleChange} placeholder="Nazwa" />
+            <input type="text" className="form-control margin-top " name="name" onChange={this.handleChange} placeholder="Nazwa" />
             <span style={{color: 'red'}}  className="help-block">{validation.name.message}</span>
           </div>
           <div>
             {subCategories &&
               <div className={'form-group' + (submitted && !group.subcategories ? ' has-error' : '')}>
-                <select class="custom-select margin-top" name="subcategories" onChange={this.updateInputValue} multiple>
+                <select className="custom-select margin-top" name="subcategories" onChange={this.updateInputValue} multiple>
                   <option disabled selected value> -- Wybierz kategorie -- </option>
                   {subCategories.categories.map((cat, index) =>
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -247,12 +242,12 @@ class CreateGroup extends React.Component {
             <span style={{color: 'red'}}  className="help-block">{validation.categoryChoosen.message}</span>
           </div>
           <div className={'form-group' + validation.description.isInvalid && ' has-error'}>
-            <textarea class="form-control margin-top" rows="3" name="description" onChange={this.handleChange} placeholder="Opis"></textarea>
+            <textarea className="form-control margin-top" rows="3" name="description" onChange={this.handleChange} placeholder="Opis"></textarea>
             <span style={{color: 'red'}}  className="help-block">{validation.description.message}</span>
           </div>
-          <button class="btn btn-secondary f-right ">Utwórz grupę</button>
+          <button className="btn btn-secondary f-right ">Utwórz grupę</button>
           {groups.creating &&
-              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <img alt="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           }
           {groups.created &&
               <div className={`alert alert-success`}>Pomyślnie utworzono grupę</div>

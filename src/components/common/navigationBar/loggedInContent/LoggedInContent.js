@@ -48,7 +48,7 @@ class LoggedInContent extends React.Component {
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <Link to="/login" className="dropdown-item">Wyloguj się</Link>
                   <Link to="/createGroup" className="dropdown-item">Utwórz Grupę</Link>
-                  <a class="dropdown-item" href="new-event.html">Utwórz Wydarzenie</a>
+                  <a className="dropdown-item" href="new-event.html">Utwórz Wydarzenie</a>
                 </div>
               </div>
             </li>

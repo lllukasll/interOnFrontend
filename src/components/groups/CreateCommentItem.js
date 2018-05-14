@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FormValidator from '../../helpers/FormValidator.js';
 import { commentActions, getPostComments } from '../../actions';
-import { postActions } from '../../actions';
 import { connect } from 'react-redux';
 
 class CreateCommentItem extends React.Component {
@@ -54,7 +52,8 @@ class CreateCommentItem extends React.Component {
                 content: this.state.commentContent
             }
             const { dispatch } = this.props;
-            dispatch(commentActions.addPostComment(comment, this.props.groupId, this.props.post.id));
+            dispatch(commentActions.addPostComment(comment, this.props.groupId, this.props.post.id)).then(
+                () => this.props.addComment());
         }
     }
 
@@ -62,7 +61,6 @@ class CreateCommentItem extends React.Component {
         let validation = this.submitted ?
                             this.validator.validate(this.state) :
                             this.state.validation
-
 
         const { comments } = this.props;
 
@@ -72,15 +70,16 @@ class CreateCommentItem extends React.Component {
             this.props.dispatch(getPostComments(this.props.groupId, this.props.post.id));
             this.props.setSyncedToFalse();
         }
+        
 
         return(
             <div>
-                <div class="row comments">
-                    <div class="col-md-8 offset-md-2">
+                <div className="row comments">
+                    <div className="col-md-8 offset-md-2">
                         <form onSubmit={this.handleSubmit}>
-                        <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" name="commentContent" onChange={this.handleChange} rows="2" placeholder="Napisz komenatrz"></textarea>
-                            <button type="submit" class="btn btn-secondary" id="submitPost">Dodaj </button>
+                        <div className="form-group">
+                            <textarea className="form-control" id="exampleFormControlTextarea1" name="commentContent" onChange={this.handleChange} rows="2" placeholder="Napisz komenatrz"></textarea>
+                            <button type="submit" className="btn btn-secondary" id="submitPost">Dodaj </button>
                             <span className="help-block">{validation.commentContent.message}</span>
                         </div>
                         </form>

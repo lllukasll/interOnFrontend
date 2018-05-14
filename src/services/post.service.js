@@ -2,6 +2,7 @@ import { authHeader, config } from '../helpers';
 
 export const postService = {
   addGroupPost,
+  updateGroupPost,
   getGroupPosts
 };
 
@@ -13,6 +14,17 @@ function addGroupPost(post, id) {
   };
 
   return fetch(config.apiUrl + '/api/group/' + id + '/post', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function updateGroupPost(post, groupId, postId) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(post)
+  };
+
+  return fetch(config.apiUrl + '/api/group/' + groupId + '/post/' + postId, requestOptions)
     .then(handleResponse, handleError);
 }
 

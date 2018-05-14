@@ -91,7 +91,7 @@ class Group extends React.Component {
     const validation = this.validator.validate(this.state);
     this.setState({ validation });
     this.submitted = true;
-    console.log(this.props.id);
+    //console.log(this.props.id);
     if(validation.isValid) {
         var post = {
             content: this.state.postContent
@@ -103,38 +103,33 @@ class Group extends React.Component {
   }
 
   isUserInGroup(users, userId) {
-    console.log('Check if user in group');
+    //console.log('Check if user in group');
     this.setState({userInGroup:false});
     return new Promise((resolve, reject) => {
       users.forEach((element) => {
       if(element.id === userId)
       {
-        console.log('Check if user in group | ElementId : ' + element.id + ' UserId : ' + userId);
+        //console.log('Check if user in group | ElementId : ' + element.id + ' UserId : ' + userId);
         this.setState({userInGroup:true});
         resolve();
-      } else {
-        this.setState({userInGroup:false});
-        console.log('User not in group');
-        reject();
       }
     });
     });
-    
   }
 
   checkIfAdmin(adminId, userId) {
-    console.log('Check if user admin');
+    //console.log('Check if user admin');
     this.setState({isAdmin: false});
     return new Promise((resolve, reject) => {
       if(adminId === userId)
       {
         this.setState({isAdmin: true})
-        console.log('User is admin');
+        //console.log('User is admin');
         resolve();
       } else {
         this.setState({isAdmin: false})
-        console.log('User is not admin');
-        reject();
+        //console.log('User is not admin');
+        resolve();
       }
     });
     
@@ -146,7 +141,7 @@ class Group extends React.Component {
                             this.validator.validate(this.state) :
                             this.state.validation
 
-    const { groups, posts, getAllPosts, loggedUser } = this.props;
+    const { groups, posts } = this.props;
     const { isLoading, userInGroup, isAdmin } = this.state;
     const { alert } = this.props;
 
@@ -165,36 +160,48 @@ class Group extends React.Component {
         <div className="row ">
 
           <SideBar />
-          <div class="col-md-9 content profile-changes">
-          {groups.loadingGroup ? (<em>Ładowanie grupy <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <div className="col-md-9 content profile-changes">
+          {groups.loadingGroup ? (<em>Ładowanie grupy <img alt="spinner" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           </em>) : (
             <div >
-              <div class="row">
-                <div class="col-md-12">
+              <div className="row">
+                <div className="col-md-12">{isAdmin ? 
+                  (<div>
+                    <Link to={"/editGroup/" + groups.group.id}>
+                      <button style={{display: 'inline-block', float: 'right', marginTop: '10px'}} >
+                        Edytuj
+                      </button>
+                    </Link>
+                    <Link to={"/editGroup/" + groups.group.id}>
+                    <button style={{display: 'inline-block', float: 'right', marginTop: '10px'}} >
+                      Usuń
+                    </button>
+                    </Link>
+                  </div>) : (<div></div>)}
                   <h1>{groups.group.name}</h1>
-                  <p id="group-name">Kategorie: {groups.group.subCategories.map((subcategory, index) => 
+                  <div id="group-name">Kategorie: {groups.group.subCategories.map((subcategory, index) => 
                     <div style={{display: 'inline-block'}}key={subcategory.id}>
                       <div> {subcategory.name} , </div>
                     </div>
-                    )}</p>
+                    )}</div>
                   <hr />
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-md-4 ">
-                  <img src={config.apiUrl + "/api/photo/" + groups.group.groupPhoto} alt="img"  class="group-photo" />
+              
+              <div className="row">
+                <div className="col-md-4 ">
+                  <img src={config.apiUrl + "/api/photo/" + groups.group.groupPhoto} alt="img"  className="group-photo" />
                 </div>
-                <div class="col-md-7 ">
-                  <div class="row">
-                    <div class="col-md-12 members-a ">
+                <div className="col-md-7 ">
+                  <div className="row">
+                    <div className="col-md-12 members-a ">
                       <p> {groups.group && groups.group.description}</p>
-                      <a href='#'><span class="members" id="modalBtn"> Liczba członków: {groups.group.numberOfUsers} </span></a>
+                      <span className="members" id="modalBtn"> Liczba członków: {groups.group.numberOfUsers} </span>
                     </div>
                   </div>
                   <hr />
-                  <div class="row">
-                    <div class="col-md-12">
+                  <div className="row">
+                    <div className="col-md-12">
                       <span><Link className="check-mail-content-link-l" to={"/userProfile/" + groups.group.userId}>{isAdmin ? (<div>Jestes adminem</div>) : (<div>administrator</div>)}</Link></span>
                       <hr />
                     </div>
@@ -202,31 +209,31 @@ class Group extends React.Component {
                 </div>
               </div>
 
-              <div class="row" >
-                <div class="col-md-8 offset-md-4 ">
-                  <div class="btn-group dropright">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightEvents" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div className="row" >
+                <div className="col-md-8 offset-md-4 ">
+                  <div className="btn-group dropright">
+                    <button type="button" className="btn btn-secondary dropdown-toggle" id="dropRightEvents" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Wydarzenia Grupy
                     </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Zobacz istniejące wydarzenia</a>
-                      <a class="dropdown-item" href="#">Utwórz nowe wydarzenie</a>
+                    <div className="dropdown-menu">
+                      <div className="dropdown-item">Zobacz istniejące wydarzenia</div>
+                      <div className="dropdown-item">Utwórz nowe wydarzenie</div>
                     </div>
                   </div>
                   {userInGroup ? 
                   ( 
-                    <div class="btn-group dropright">
-                      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-sign-out-alt"></i>
+                    <div className="btn-group dropright">
+                      <button type="button" className="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fas fa-sign-out-alt"></i>
                       </button>
-                      <div class="dropdown-menu">
+                      <div className="dropdown-menu">
                         <button type="button" onClick={this.leaveGroup} className="dropdown-item pointer-hand">Opuść grupę</button>
                       </div>
                     </div>
                   ) : 
                   (
-                  <div class="btn">
-                    <button type="button" class="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
+                  <div className="btn">
+                    <button type="button" className="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
                   </div>
                   )}
                   
@@ -241,18 +248,18 @@ class Group extends React.Component {
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-11 content profile-changes">
+        <div className="row">
+          <div className="col-md-11 content profile-changes">
             <h1> Posty</h1>
             <hr />
-            <div class="row margin-post ">
-              <div class="col-md-8 offset-md-2">
+            <div className="row margin-post ">
+              <div className="col-md-8 offset-md-2">
                 <form onSubmit={this.handleSubmit}>
-                  <div class={'form-group interest-content ' + validation.postContent.isInvalid && ' has-error'}>
-                    <textarea class="form-control" rows="3" name="postContent" placeholder="Napisz post" onChange={this.handleChange}></textarea>
+                  <div className={'form-group interest-content ' + validation.postContent.isInvalid && ' has-error'}>
+                    <textarea className="form-control" rows="3" name="postContent" placeholder="Napisz post" onChange={this.handleChange}></textarea>
                     <span className="help-block">{validation.postContent.message}</span>
-                    <button type="submit" class="btn btn-secondary" id="submitPost">Dodaj Post {posts.loading ?
-                      (<img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />) : (<div></div>)
+                    <button type="submit" className="btn btn-secondary" id="submitPost">Dodaj Post {posts.loading ?
+                      (<img alt="spinner" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />) : (<div></div>)
                     }</button>
                     {posts.created &&
                         <div className={`alert alert-success`}>Pomyślnie utworzono post</div>
@@ -266,7 +273,7 @@ class Group extends React.Component {
               </div>
             </div>
 
-            <PostsList posts={this.props.posts.posts} groupId={this.props.id}/>
+            <PostsList posts={this.props.posts.posts} groupId={this.props.id} isAdmin={isAdmin}/>
 
           </div>
         </div>

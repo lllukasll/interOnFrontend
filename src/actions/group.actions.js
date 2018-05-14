@@ -6,6 +6,7 @@ export const groupActions = {
   getAll,
   getGroup,
   createGroup,
+  updateGroup,
   uploadPhoto,
   joinGroup,
   leaveGroup
@@ -65,6 +66,27 @@ function createGroup(group) {
         error => {
           dispatch(failure(error));
           //dispatch(alertActions.error(error));
+        }
+      );
+  };
+
+  function request(group) {return {type: groupConstants.CREATEGROUP_REQUEST, group}}
+  function success(group) {return {type: groupConstants.CREATEGROUP_SUCCESS, group}}
+  function failure(error) {return {type: groupConstants.CREATEGROUP_FAILURE, error}}
+}
+
+function updateGroup(group, id) {
+  return dispatch => {
+    dispatch(request(group));
+
+    groupService.updateGroup(group, id)
+      .then(
+        group => {
+          dispatch(success(group));
+          dispatch(alertActions.success("Poprawnie zaktualizowano dane grupy"));
+        },
+        error => {
+          dispatch(failure(error));
         }
       );
   };

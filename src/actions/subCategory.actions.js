@@ -27,16 +27,21 @@ function getAllForId(id) {
 }
 
 function getAll() {
-  return dispatch => {
+  return function (dispatch) {
+    return new Promise((resolve, reject) => {
     dispatch(request());
-
     subCategoryService.getAll()
       .then(
-        subCategories => dispatch(success(subCategories)),
+        subCategories => {
+          dispatch(success(subCategories));
+          resolve(subCategories);
+        },
         error => {
           dispatch(failure(error));
+          reject(error);
         }
-      );
+        );
+    });
   };
 
   function request() {return {type: subCategoryConstants.GETALL_REQUEST}}

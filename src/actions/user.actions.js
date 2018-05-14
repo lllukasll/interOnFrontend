@@ -159,5 +159,5 @@ function changePassword(data) {
 
   function request(data) {return {type: userConstants.CHANGEPASSWORD_REQUEST, data}}
   function success(message) {return {type: userConstants.CHANGEPASSWORD_SUCCESS, message}}
-  function failure(error) {return {type: userConstants.CHANGEPASSWORD_FAILURE, error}}
+  //function failure(error) {return {type: userConstants.CHANGEPASSWORD_FAILURE, error}}
 }

@@ -5,3 +5,4 @@ export * from './subCategory.constants';
 export * from './group.constants';
 export * from './post.constants';
 export * from './comment.constants';
+export * from './event.constants';

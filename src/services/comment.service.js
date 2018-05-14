@@ -2,6 +2,7 @@ import { authHeader, config } from '../helpers';
 
 export const commentService = {
   addPostComment,
+  updatePostComment,
   getPostComments
 };
 
@@ -13,6 +14,17 @@ function addPostComment(comment, groupId, postId) {
   };
 
   return fetch(config.apiUrl + '/api/group/' + groupId + '/post/' + postId + '/comment', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function updatePostComment(comment, groupId, postId, commentId) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(comment)
+  };
+
+  return fetch(config.apiUrl + '/api/group/' + groupId + '/post/' + postId + '/comment/' + commentId, requestOptions)
     .then(handleResponse, handleError);
 }
 

@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { userActions } from '../../actions';
 import SideBar from '../common/sideBar/SideBar';
 import Interests from './interests/Interests';
 import PopularGroups from './popularGroups/PopularGroups';
@@ -14,7 +11,6 @@ import LoggedUpcomingEvents from './upcomingEvents/LoggedUpcomingEvents';
 class HomePage extends React.Component {
   render() {
       const { loggedIn } = this.props;
-      const { alert } = this.props;
 
       const userContent = (
         <section className="container">

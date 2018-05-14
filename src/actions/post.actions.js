@@ -3,6 +3,7 @@ import { postService } from '../services';
 
 export const postActions = {
     addGroupPost,
+    updateGroupPost,
     getGroupPosts
 }
 
@@ -19,6 +20,30 @@ function addGroupPost(post, id) {
           dispatch(failure(error));
         }
       );
+  };
+
+  function request(post) {return {type: postConstants.CREATEGROUPPOST_REQUEST, post}}
+  function success(post) {return {type: postConstants.CREATEGROUPPOST_SUCCESS, post}}
+  function failure(error) {return {type: postConstants.CREATEGROUPPOST_FAILURE, error}}
+}
+
+function updateGroupPost(post, groupId, postId) {
+  return function (dispatch) {
+    return new Promise((resolve, reject) => {
+    dispatch(request(post));
+
+    postService.updateGroupPost(post, groupId, postId)
+      .then(
+        post => {
+          dispatch(success(post));
+          resolve(post);
+        },
+        error => {
+          dispatch(failure(error));
+          reject(error);
+        }
+        );
+    });
   };
 
   function request(post) {return {type: postConstants.CREATEGROUPPOST_REQUEST, post}}

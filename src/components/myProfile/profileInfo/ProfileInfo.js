@@ -21,30 +21,30 @@ class ProfileInfo extends React.Component {
     const { loggedUser } = this.props;
 
     return (
-        <div class="col-md-9 content profile-changes">
+        <div className="col-md-9 content profile-changes">
             <h1> Mój profil </h1>
             <hr />
-            <div class="row profile-changes">
-                <div class="col-md-4">
-                    <img src="/images/profilePhoto.jpg" class="profile-photo" />
+            <div className="row profile-changes">
+                <div className="col-md-4">
+                    <img alt="avatar" src="/images/profilePhoto.jpg" className="profile-photo" />
                 </div>
-                <div class="col-md-8 ">
-                    <div class="row">
-                        <div class="col-md-12 name  ">
+                <div className="col-md-8 ">
+                    <div className="row">
+                        <div className="col-md-12 name  ">
                             <p id="name">{loggedUser.loggedUserData && loggedUser.loggedUserData.name} {loggedUser.loggedUserData && loggedUser.loggedUserData.surname}</p>
                             <hr />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span>adres e-mail: <a href="#" id="email">{loggedUser.loggedUserData && loggedUser.loggedUserData.email}</a></span>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <span>adres e-mail:{loggedUser.loggedUserData && loggedUser.loggedUserData.email}</span>
                             <hr />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                             <Link to="/changeAvatar"><button type="button" class="btn btn-secondary">Zmień Avatar</button></Link>
-                            <Link to="/changePassword"><button type="button" class="btn btn-secondary">Zmień Hasło</button></Link>
+                    <div className="row">
+                        <div className="col-md-12">
+                             <Link to="/changeAvatar"><button type="button" className="btn btn-secondary">Zmień Avatar</button></Link>
+                            <Link to="/changePassword"><button type="button" className="btn btn-secondary">Zmień Hasło</button></Link>
                         </div>
                     </div>
                 </div>

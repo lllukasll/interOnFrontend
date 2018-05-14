@@ -576,3 +576,12 @@ max-width: 500px;
   background-color: rgb(136,52,147);
   opacity: 0.85;
 }
+
+.spinner-field{
+
+  width: 500px;
+  height: 300px;
+  margin: 200px auto;
+  text-align: center;
+}
+

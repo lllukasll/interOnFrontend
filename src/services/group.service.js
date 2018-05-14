@@ -4,6 +4,7 @@ export const groupService = {
   getAll,
   getGroup,
   createGroup,
+  updateGroup,
   uploadPhoto,
   joinGroup,
   leaveGroup
@@ -37,6 +38,16 @@ function createGroup(group) {
   };
   console.log("Create group request : " + requestOptions.body);
   return fetch(config.apiUrl + '/api/group', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function updateGroup(group, id) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {...authHeader(), 'Content-Type': 'application/json'},
+    body: JSON.stringify(group)
+  };
+  return fetch(config.apiUrl + '/api/group/' + id, requestOptions)
     .then(handleResponse, handleError);
 }
 
