@@ -1,7 +1,8 @@
 import { authHeader, config } from '../helpers';
 
 export const eventService = {
-  getAll
+  getAll,
+  getOne
 };
 
 function getAll() {
@@ -11,6 +12,16 @@ function getAll() {
   };
 
   return fetch(config.apiUrl + '/api/event', requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function getOne(eventId) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+
+  return fetch(config.apiUrl + '/api/event/' + eventId, requestOptions)
     .then(handleResponse, handleError);
 }
 

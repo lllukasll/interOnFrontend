@@ -2,7 +2,9 @@ import { eventConstants } from '../constants';
 
 const initialState = {
   loading: false,
+  loadingOne: false,
   events: [],
+  event: [],
   error: []
 };
 
@@ -17,6 +19,18 @@ export function events(state = initialState, action) {
                 events: action.events
             };
         case eventConstants.EVENT_GETALL_FAILURE:
+            return {
+                error: action.error
+            };
+        case eventConstants.EVENT_GETONE_REQUEST:
+            return {
+                loadingOne: true
+            };
+        case eventConstants.EVENT_GETONE_SUCCESS:
+            return {
+                event: action.event
+            };
+        case eventConstants.EVENT_GETONE_FAILURE:
             return {
                 error: action.error
             };

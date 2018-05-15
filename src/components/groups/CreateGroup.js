@@ -234,7 +234,7 @@ class CreateGroup extends React.Component {
                 <select className="custom-select margin-top" name="subcategories" onChange={this.updateInputValue} multiple>
                   <option disabled selected value> -- Wybierz kategorie -- </option>
                   {subCategories.categories.map((cat, index) =>
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    <option key={cat.id} value={cat.id}>{cat.label}</option>
                   )}
                 </select>
               </div>

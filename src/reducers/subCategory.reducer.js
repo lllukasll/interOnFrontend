@@ -19,8 +19,16 @@ export function subCategories(state = {}, action) {
         loadingAll: true
       };
     case subCategoryConstants.GETALL_SUCCESS:
+      var formatedItems = [];
+      action.subCategories.forEach((item) => {
+          var formatedItem = {
+              id: item.id,
+              label: item.name
+          }
+          formatedItems.push(formatedItem)
+      });
       return {
-        categories: action.subCategories
+        categories: formatedItems
       };
     case subCategoryConstants.GETALL_FAILURE:
       return {
