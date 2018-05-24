@@ -11,7 +11,7 @@ const EventsListItem = props => (
                 <h3> {props.title} </h3>
                 <h6 className="date"> {props.date} </h6>
                 <p>{props.content}</p>
-                <Link to="/event" className="btn btn-secondary details-btn">Szczegóły</Link>
+                <Link to={"/event/" + props.eventId} className="btn btn-secondary details-btn">Szczegóły</Link>
             </div>
         </div>
     </div>

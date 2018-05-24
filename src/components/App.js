@@ -18,7 +18,8 @@ import { CreateSubcategory} from '../components/subCategories/createSubcategory/
 import { CreateMainCategory} from '../components/mainCategories/createMainCategory/CreateMainCategory';
 import Event from '../components/events/event/EventPage';
 import EventsList from '../components/events/eventsList/EventsListPage';
-import CreateEventPage from '../components/events/createEvent/CreateEventPage'
+import CreateEventPage from '../components/events/createEvent/CreateEventPage';
+import MapContainer from '../components/map/MapContainer';
 import {history} from '../helpers'
 
 import {Router, Route} from 'react-router-dom';
@@ -50,6 +51,7 @@ class App extends React.Component {
                 <Route path="/event/:id" component={Event} />
                 <Route path="/events" component={EventsList} />
                 <Route path="/createEvent" component={CreateEventPage} />
+                <Route path="/maptest" component={MapContainer} />
                 </div>
             </div>
           </Router>

@@ -5,7 +5,14 @@ const initialState = {
   loadingOne: false,
   events: [],
   event: [],
-  error: []
+  error: [],
+  creatingEvent: false,
+  createdEvent: false,
+  eventResponse: [],
+  uploadingPhoto: false,
+  uploadedPhoto: false,
+  photo: [],
+  created: false    
 };
 
 export function events(state = initialState, action) {
@@ -34,6 +41,33 @@ export function events(state = initialState, action) {
             return {
                 error: action.error
             };
+        case eventConstants.CREATEEVENT_REQUEST:
+            return { 
+                creatingEvent: true 
+            };
+        case eventConstants.CREATEEVENT_SUCCESS:
+            return {
+                createdEvent:true,
+                eventResponse: action.event
+            };
+        case eventConstants.CREATEEVENT_FAILURE:
+            return {
+                error: action.error
+            };
+        case eventConstants.UPLOADPHOTO_REQUEST:
+            return { 
+                uploadingPhoto: true 
+            };
+        case eventConstants.UPLOADPHOTO_SUCCESS:
+            return {
+                created:true,
+                uploadedPhoto:true,
+                photo: action.photo
+            };
+        case eventConstants.UPLOADPHOTO_FAILURE:
+            return {
+                error: action.error
+            };    
         default:
             return state
     }

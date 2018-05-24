@@ -5,8 +5,18 @@ import { eventActions } from '../../../actions'
 import { connect } from 'react-redux';
 
 class EventsList extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            isLoading: true
+        }
+    }
+
     componentDidMount(){
+        this.setState({isLoading: true})
         this.props.dispatch(eventActions.getAll());
+        this.setState({isLoading: false})
     }
 
     renderSpiner(){
@@ -20,6 +30,7 @@ class EventsList extends React.Component {
             <div>
                 {events.map((event, index) => 
                     <EventsListItem key={event.id}
+                        eventId={event.id}
                         content={event.description} 
                         date={event.dateTimeEvent} 
                         title={event.name} 
@@ -33,6 +44,12 @@ class EventsList extends React.Component {
 
     render(){
         const { events } = this.props;
+
+         if(this.state.isLoading){
+            return(
+                this.renderSpiner()
+            )
+        }
 
         return(
             <div className="container">

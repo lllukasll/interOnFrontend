@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 const EventContent = props => (
     <div className="col-md-9 content profile-changes">
         <div className="row">

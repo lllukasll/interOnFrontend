@@ -3,11 +3,27 @@ import Sidebar from '../../common/sideBar/SideBar.js'
 import EventContent from './EventContent.js'
 import { eventActions } from '../../../actions'
 import { connect } from 'react-redux';
+import Modal from 'react-responsive-modal';
+import MapContainer from '../../map/MapContainer';
 
 class Event extends React.Component {
-    componentDidMount(){
-        this.props.dispatch(eventActions.getOne(this.props.id));
+    constructor(props){
+        super(props);
+
+        this.state ={
+            isLoading: true,
+            openMap: false
+        }
     }
+    componentDidMount(){
+        this.setState({isLoading: true})
+        this.props.dispatch(eventActions.getOne(this.props.id));
+        this.setState({isLoading: false})
+    }
+
+    onOpenMap = () => { this.setState({ openMap: true }) };
+
+    onCloseMap = () => { this.setState({ openMap: false }) };
 
     leaveGroup(){
 
@@ -31,17 +47,25 @@ class Event extends React.Component {
                 adminId={6026}
                 leaveGroup={this.leaveGroup}
             />
+            
         );
     }
 
     render(){
         const { events } = this.props;
 
+        if(this.state.isLoading){
+            return(
+                this.renderSpiner()
+            )
+        }
+
         return(
             <div className="container">
                 <div className="row">
                     <Sidebar />
                     {events && events.loadingOne ? (this.renderSpiner()) : (this.renderContent(events.event))}
+                    
                 </div>
             </div>
         );
@@ -57,4 +81,3 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default connect(mapStateToProps)(Event);
-
