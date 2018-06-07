@@ -56,7 +56,7 @@ function deleteFriend(id) {
     body: JSON.stringify()
   };
 
-  return fetch(config.apiUrl + '/api/user/' + id + '/friends/remove/', requestOptions)
+  return fetch(config.apiUrl + '/api/user/friends/remove/' + id, requestOptions)
     .then(handleResponse, handleError);
 }
 

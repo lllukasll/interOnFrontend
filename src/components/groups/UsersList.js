@@ -12,6 +12,8 @@ class UsersList extends React.Component {
     }
 
     render() {
+        const { friends } = this.props;
+
         return (
             <div style={{width: "800px"}}>
                 <div class="row">
@@ -30,7 +32,9 @@ class UsersList extends React.Component {
                 {this.props.users.map((user, indeks) => 
                     <UserItem user={user} />
                 )}
-                
+                {friends && friends.friendAddedMessage && <div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-success`}>{friends.friendAddedMessage}</div>}
+                {friends && friends.addingFriendError && <div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-danger`}>{friends.addingFriendError}</div>}
+                   
 
             </div>
         );
@@ -39,7 +43,9 @@ class UsersList extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
+    const { friends } = state;
     return {
+        friends
     };
 }
 

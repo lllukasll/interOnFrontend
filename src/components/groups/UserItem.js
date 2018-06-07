@@ -35,9 +35,7 @@ class UserItem extends React.Component {
                         <button type="button" class="btn btn-default friends-btn" onClick={v => this.addFriend(this.props.user.id)}>
                             <i class="fas fa-user-plus"></i> Dodaj do znajomcyh
                         </button>
-                        {friends && friends.friendAddedMessage ? (<div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-success`}>{friends.friendAddedMessage}</div>) : (<div></div>)}
-                        {friends && friends.addingFriendError ? (<div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-danger`}>{friends.addingFriendError}</div>) : (<div></div>)}
-                    </div>
+                         </div>
                 </div>
             </div>
         );

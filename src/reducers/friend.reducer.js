@@ -56,10 +56,10 @@ const initialState = {
     addingFirends: false,
     confirmed: false,
     deleting: false,
-    friendAddedMessage: '',
+    friendAddedMessage: null,
     confirmedFriendMessage: '',
     deletedFriendMessage: '',
-    addingFriendError: [],
+    addingFriendError: null,
     confirmedFriendError: [],
     deletedFriendError: []
 };

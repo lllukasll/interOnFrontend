@@ -18,11 +18,21 @@ class FriendItem extends React.Component {
         this.props.dispatch(friendActions.deleteFriend(id)).then(friend => this.props.dispatch(friendActions.getConfirmed()))
     }
 
+    getUserData(){
+        if(this.props.friend.userA.id == this.props.authentication.user.clientId)
+        {
+            return this.props.friend.userB.name + ' ' + this.props.friend.userB.surname
+        }else
+        {
+            return this.props.friend.userA.name + ' ' + this.props.friend.userA.surname
+        }
+    }
+
     render() {
         return (
             <div>
-                {this.props.friend.userA.name} {this.props.friend.userA.surname}
-                <button onClick={value => this.removeInvitation(this.props.friend.userA.id)}>Usuń</button>
+                {this.getUserData()}
+                <button onClick={value => this.removeInvitation(this.props.friend.id)}>Usuń</button>
             </div>
         );
     }
@@ -30,7 +40,9 @@ class FriendItem extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
+    const { authentication } = state;
     return {
+        authentication
     };
 }
 
