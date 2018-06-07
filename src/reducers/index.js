@@ -12,6 +12,7 @@ import { groups } from './group.reducer';
 import { posts} from './post.reducer';
 import { comments} from './comment.reducer';
 import { events } from './event.reducer';
+import { friends, friendsInvitations, friendsConfirmed } from './friend.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -27,7 +28,9 @@ const rootReducer = combineReducers({
   posts,
   comments,
   events,
-  //getAllPosts,
+  friends,
+  friendsInvitations,
+  friendsConfirmed,
   alert
 });
 

@@ -1,5 +1,6 @@
 import { userConstants } from '../constants';
 
+
 export function loggedUser(state = {}, action) {
   switch (action.type) {
     case userConstants.GETLOGGEDUSER_REQUEST:

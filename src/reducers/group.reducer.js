@@ -42,6 +42,18 @@ export function groups(state = initialState, action) {
       return {
         error: action.error
       };
+    case groupConstants.GETGROUPSFORUSER_REQUEST:
+      return {
+        loadingGroupsForUser: true
+      };
+    case groupConstants.GETGROUPSFORUSER_SUCCESS:
+      return {
+        groupsForUser: action.groups
+      };
+    case groupConstants.GETGROUPSFORUSER_FAILURE:
+      return {
+        error: action.error
+      };
     case groupConstants.CREATEGROUP_REQUEST:
       return { 
         creating: true 

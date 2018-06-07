@@ -5,7 +5,7 @@ const EventsListItem = props => (
     <div className="col-md-10 offset-md-1 group-content ">
         <div className= "row">
             <div className="col-md-4">
-                <img src={props.photoUrl} alt={props.photoAlt} className="image-responsive  img-margin" />
+                <img style={{width: '180px', height: '180px'}} src={props.photoUrl} alt={props.photoAlt} className="image-responsive  img-margin" />
             </div>
             <div className="col-md-6 offset-md-1 group-description" >
                 <h3> {props.title} </h3>

@@ -41,6 +41,7 @@ class LoginPage extends React.Component {
         const { alert } = this.props;
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
+        
         return (
           <section className="container fill-screen main">
             <div className="row">

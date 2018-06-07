@@ -38,7 +38,7 @@ class PostsList extends React.Component {
                     this.props.posts.map((post, index) => 
                     <div key={post.id}>
                         <PostItem post={post} groupId={this.props.groupId} isAdmin={this.props.isAdmin}/>
-                        <div><CommentsList topComments={post.postComments} groupId={this.props.groupId} postId={post.id} post={post} isAdmin={this.props.isAdmin}/></div>
+                        <div><CommentsList topComments={post.postComments} groupId={this.props.groupId} postId={post.id} post={post} isAdmin={this.props.isAdmin} userInGroup={this.props.userInGroup}/></div>
                     </div>
                 )}
             </div>

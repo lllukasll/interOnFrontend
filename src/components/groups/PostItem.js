@@ -2,6 +2,7 @@ import React from 'react';
 import FormValidator from '../../helpers/FormValidator.js';
 import { postActions } from '../../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class PostItem extends React.Component {
     constructor(props) {
@@ -111,7 +112,7 @@ class PostItem extends React.Component {
                         <img alt="avatar" src="/images/av.jpg" className="avatar" />
                     </div>
                     <div className="col-md-5">
-                        <p className="font-weight-bold">{post.user.name} {post.user.surname}<br /> {this.getMyDateFormat(post.createDateTime)} </p>
+                        <p className="font-weight-bold" ><Link to={"../userProfile/" + post.user.id}> {post.user.name} {post.user.surname} </Link><br /> {this.getMyDateFormat(post.createDateTime)} </p>
                     </div>
                     <div className="col-md-5">
                         {this.isUserAuthor(post.user.id, loggedUser.loggedUserData.id) ? 
@@ -146,7 +147,7 @@ class PostItem extends React.Component {
                             <img alt="avatar" src="/images/av.jpg" className="avatar" />
                         </div>
                         <div className="col-md-5">
-                            <p className="font-weight-bold">{post.user.name} {post.user.surname}<br /> {this.getMyDateFormat(post.createDateTime)} </p>
+                            <p className="font-weight-bold"><Link to={"../userProfile/" + post.user.id}>{post.user.name} {post.user.surname}</Link><br /> {this.getMyDateFormat(post.createDateTime)} </p>
                         </div>
                         <div className="col-md-5">
                             {this.isUserAuthor(post.user.id, loggedUser.loggedUserData.id) || this.props.isAdmin ? 

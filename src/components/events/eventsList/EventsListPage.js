@@ -3,6 +3,7 @@ import EventsListItem from './EventsListItem.js'
 import Sidebar from '../../common/sideBar/SideBar.js'
 import { eventActions } from '../../../actions'
 import { connect } from 'react-redux';
+import { config } from '../../../helpers';
 
 class EventsList extends React.Component {
     constructor(props){
@@ -34,8 +35,8 @@ class EventsList extends React.Component {
                         content={event.description} 
                         date={event.dateTimeEvent} 
                         title={event.name} 
-                        photoUrl={"/images/rower.jpg"} 
-                        photoAlt={"rower"}
+                        photoUrl={config.apiUrl + "/api/photo/" + event.photoUrl}
+                        photoAlt={event.name}
                     />
                 )}
             </div>

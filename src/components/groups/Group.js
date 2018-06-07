@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { groupActions } from '../../actions';
-import { alertActions } from '../../actions';
-import { postActions } from '../../actions';
+import { groupActions, alertActions, postActions, friendActions } from '../../actions';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideBar from '../common/sideBar/SideBar';
 import { config } from '../../helpers';
 import FormValidator from '../../helpers/FormValidator.js';
-
+import Modal from 'react-responsive-modal';
 import { PostsList } from './PostsList.js';
+import UsersList from './UsersList.js';
 
 class Group extends React.Component {
   constructor(props) {
@@ -37,6 +36,7 @@ class Group extends React.Component {
       isLoading: true,
       userInGroup: false,
       isAdmin: false,
+      openUsersList: false,
       validation: this.validator.valid()
     };
 
@@ -48,6 +48,8 @@ class Group extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isUserInGroup = this.isUserInGroup.bind(this);
   }
+
+  changeModalState = () => { this.setState({ openUsersList: !this.state.openUsersList }) };
 
   joinGroup(event) {
     event.preventDefault();
@@ -76,6 +78,7 @@ class Group extends React.Component {
     this.setState({isLoading:false});
   }
 
+  
 
   handleChange(event) {
     event.preventDefault();
@@ -196,7 +199,16 @@ class Group extends React.Component {
                   <div className="row">
                     <div className="col-md-12 members-a ">
                       <p> {groups.group && groups.group.description}</p>
-                      <span className="members" id="modalBtn"> Liczba członków: {groups.group.numberOfUsers} </span>
+                      <span style={{cursor: "pointer"}} className="members" id="modalBtn" onClick={this.changeModalState}> Liczba członków: {groups.group.numberOfUsers} </span>
+
+                      <Modal
+                        open={this.state.openUsersList}
+                        onClose={this.changeModalState}
+                        center
+                      >
+                        <UsersList users={groups.group.users}/>
+                      </Modal>
+
                     </div>
                   </div>
                   <hr />
@@ -220,7 +232,7 @@ class Group extends React.Component {
                       <div className="dropdown-item">Utwórz nowe wydarzenie</div>
                     </div>
                   </div>
-                  {userInGroup ? 
+                  {userInGroup && !isAdmin ? 
                   ( 
                     <div className="btn-group dropright">
                       <button type="button" className="btn btn-secondary dropdown-toggle" id="dropRightExit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -232,9 +244,11 @@ class Group extends React.Component {
                     </div>
                   ) : 
                   (
-                  <div className="btn">
+                    <div>
+                    {!isAdmin && <div className="btn">
                     <button type="button" className="btn btn-secondary join-group-btn" onClick={this.joinGroup}>Dołącz do grupy</button>
-                  </div>
+                  </div>}</div>
+                  
                   )}
                   
                    
@@ -258,9 +272,9 @@ class Group extends React.Component {
                   <div className={'form-group interest-content ' + validation.postContent.isInvalid && ' has-error'}>
                     <textarea className="form-control" rows="3" name="postContent" placeholder="Napisz post" onChange={this.handleChange}></textarea>
                     <span className="help-block">{validation.postContent.message}</span>
-                    <button type="submit" className="btn btn-secondary" id="submitPost">Dodaj Post {posts.loading ?
+                    {userInGroup || isAdmin ? (<button type="submit" className="btn btn-secondary" id="submitPost">Dodaj Post {posts.loading ?
                       (<img alt="spinner" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />) : (<div></div>)
-                    }</button>
+                    }</button>) : (<div>W celu dodania postu należy dołączyć do grupy</div>)}
                     {posts.created &&
                         <div className={`alert alert-success`}>Pomyślnie utworzono post</div>
                          
@@ -273,7 +287,7 @@ class Group extends React.Component {
               </div>
             </div>
 
-            <PostsList posts={this.props.posts.posts} groupId={this.props.id} isAdmin={isAdmin}/>
+            <PostsList posts={this.props.posts.posts} groupId={this.props.id} isAdmin={isAdmin} userInGroup={userInGroup}/>
 
           </div>
         </div>

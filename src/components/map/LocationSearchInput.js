@@ -8,7 +8,8 @@ export class LocationSearchInput extends React.Component {
   }
 
   handleChange = (address) => {
-    this.setState({ address })
+    this.setState({ address });
+    this.props.setAddress(address);
   }
 
   handleSelect = (address) => {

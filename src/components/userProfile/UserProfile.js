@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SideBar from '../common/sideBar/SideBar';
 import { userActions } from '../../actions';
+import { friendActions } from '../../actions';
 
 class UserProfile extends React.Component {
   constructor() {
@@ -14,11 +15,16 @@ class UserProfile extends React.Component {
     componentDidMount() {
         this.setState({isLoading: true});
         this.props.dispatch(userActions.getUser(this.props.id));
+        this.props.dispatch(friendActions.clearInvitations());
         this.setState({isLoading:false});
     }
 
+    addFriend(id){
+        this.props.dispatch(friendActions.addFriend(id));
+    }
+
     render() {
-    const { user } = this.props;
+    const { user, friends } = this.props;
     const { isLoading } = this.state;
 
     if(isLoading) {
@@ -53,9 +59,11 @@ class UserProfile extends React.Component {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <button type="button" className="btn btn-secondary  profile-buttons">Wyślij Wiadomość</button>
-                                        <button type="button" className="btn btn-secondary profile-buttons">Dodaj Do Znajomych</button>
+                                        <button type="button" className="btn btn-secondary profile-buttons" onClick={v => this.addFriend(user.userData.id)}>Dodaj Do Znajomych</button>
                                         <button type="button" className="btn btn-secondary profile-buttons">Usuń Ze Znajomych</button>
                                     </div>
+                                    {friends && friends.friendAddedMessage ? (<div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-success`}>{friends.friendAddedMessage}</div>) : (<div></div>)}
+                                    {friends && friends.addingFriendError ? (<div style={{margin: '10px auto', textAlign: 'center'}} className={`alert alert-danger`}>{friends.addingFriendError}</div>) : (<div></div>)}
                                 </div>
                             </div>
                             </div>
@@ -68,9 +76,10 @@ class UserProfile extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    const { user } = state;
+    const { user, friends } = state;
     return {
         user,
+        friends,
         id: ownProps.match.params.id
     };
 }

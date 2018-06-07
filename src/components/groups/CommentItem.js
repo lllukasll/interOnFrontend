@@ -2,7 +2,7 @@ import React from 'react';
 import FormValidator from '../../helpers/FormValidator.js';
 import { commentActions } from '../../actions';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 class CommentItem extends React.Component {
     constructor(props) {
         super(props);
@@ -116,7 +116,7 @@ class CommentItem extends React.Component {
                                 {this.isUserAuthor(comment.user.id, loggedUser.loggedUserData.id) ? (<div style={{float: 'left', display: 'inline-block'}}><button onClick={this.editCommentClick} style={{cursor: 'pointer'}} className="dropdown-item">Tak</button></div>) : (<div></div>)}
                             </div>
                         </div>) : (<div></div>)}
-                        <p> {comment.user.name} {comment.user.surname} </p>
+                        <p><Link to={"../userProfile/" + comment.user.id}> {comment.user.name} {comment.user.surname} </Link></p>
                         <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <textarea className="form-control" name="commentContent" id="commentContentInput" onChange={this.handleChange} defaultValue={comment.content} rows="2"></textarea>
@@ -142,7 +142,7 @@ class CommentItem extends React.Component {
                                 {this.isUserAuthor(comment.user.id, loggedUser.loggedUserData.id) || this.props.isAdmin ? (<div style={{ display: 'inline-block', cursor: 'pointer'}} ><button onClick={this.deleteCommentClick} className="dropdown-item">Usuń</button></div>) : (<div></div>)}
                             </div>
                         </div>) : (<div></div>)}
-                        <p> {comment.user.name} {comment.user.surname} {comment.content}</p>
+                        <p><Link to={"../userProfile/" + comment.user.id}>  {comment.user.name} {comment.user.surname} </Link>{comment.content}</p>
                         <hr />
                     </div>
                 </div>)}

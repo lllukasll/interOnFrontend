@@ -91,11 +91,24 @@ class CommentsList extends React.Component {
             <div>
                 {showComments ? (
                     <div>
-                        <CreateCommentItem post={this.props.post} groupId={this.props.groupId} setSyncedToFalse={this.setSyncedToFalse.bind(this)} addComment={this.addComment}/>
+                        <CreateCommentItem 
+                            post={this.props.post} 
+                            groupId={this.props.groupId} 
+                            setSyncedToFalse={this.setSyncedToFalse.bind(this)} 
+                            addComment={this.addComment} 
+                            userInGroup={this.props.userInGroup}
+                            isAdmin={this.props.isAdmin}
+                        />
                             {commentsFromDb.comments && 
                             commentsFromDb.comments.map((comment, index) => 
                             <div key={comment.id}>
-                                <CommentItem groupId={this.props.groupId} post={this.props.post} comment={comment} isAdmin={this.props.isAdmin} updateComment={this.updateComment}/>
+                                <CommentItem 
+                                    groupId={this.props.groupId} 
+                                    post={this.props.post} 
+                                    comment={comment} 
+                                    isAdmin={this.props.isAdmin} 
+                                    updateComment={this.updateComment}
+                                />
                             </div>
                             )}
                     </div>

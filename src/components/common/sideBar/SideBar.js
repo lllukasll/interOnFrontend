@@ -6,9 +6,9 @@ class SideBar extends React.Component {
     return(
       <div className="col-md-2 sidebar content-sidebar ">
         <div className="list-group">
-          <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Moje grupy</a>
+          <Link to="../myGroups" className="list-group-item list-group-item-action sidebar-button">Moje grupy</Link>
           <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Moje Wydarzenia</a>
-          <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Znajomi</a>
+          <Link to="../friends" className="list-group-item list-group-item-action sidebar-button">Znajomi</Link>
           <a href="my-groups.html" className="list-group-item list-group-item-action sidebar-button">Wiadomości</a>
           <div className="lines"> </div>
           <Link to="/mainCategories" className="list-group-item list-group-item-action sidebar-button ">Kategorie</Link>

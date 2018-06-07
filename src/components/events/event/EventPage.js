@@ -21,9 +21,13 @@ class Event extends React.Component {
         this.setState({isLoading: false})
     }
 
-    onOpenMap = () => { this.setState({ openMap: true }) };
+    getMyDateFormat(data){
+        var date = new Date(data);
+        var dateTime = date.toLocaleDateString();
+        return dateTime;
+    }
 
-    onCloseMap = () => { this.setState({ openMap: false }) };
+    changeMapState = () => { this.setState({ openMap: !this.state.openMap }) };
 
     leaveGroup(){
 
@@ -40,14 +44,18 @@ class Event extends React.Component {
         return(
             <EventContent 
                 title={event.name}
-                date={"30.04.2018"}
-                address={"Stadion Stomilu"}
+                address={event.addressDto.address}
+                mapState={this.state.openMap}
+                longitude={event.addressDto.longitude}
+                latitude={event.addressDto.latitude}
+                photoUrl={event.photoUrl}
+                date={this.getMyDateFormat(event.dateTimeEvent)}
                 content={event.description}
                 numberOfPeople={"123"}
                 adminId={6026}
                 leaveGroup={this.leaveGroup}
+                changeMapState={this.changeMapState}
             />
-            
         );
     }
 
@@ -64,7 +72,10 @@ class Event extends React.Component {
             <div className="container">
                 <div className="row">
                     <Sidebar />
-                    {events && events.loadingOne ? (this.renderSpiner()) : (this.renderContent(events.event))}
+                    {events && events.loadingOne ? (this.renderSpiner()) : 
+                    (
+                        this.renderContent(events.event)
+                    )}
                     
                 </div>
             </div>

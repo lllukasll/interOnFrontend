@@ -8,7 +8,7 @@ import { LocationSearchInput } from '../../map/LocationSearchInput';
 import Modal from 'react-responsive-modal';
 import Dropzone from 'react-dropzone'
 import FormValidator from '../../../helpers/FormValidator.js';
-
+import { history } from '../../../helpers';
 import DatePicker from './DatePicker';
 import CategoryMultiselect from './CategoryMultiselect'
 import UploadPhoto from './UploadPhoto'
@@ -79,6 +79,7 @@ class CreateEventPage extends React.Component {
             //map
             addressSelected: false,
             openMap: false,
+            address: '',
             lng: '',
             lat: '',
             //photo
@@ -92,6 +93,7 @@ class CreateEventPage extends React.Component {
         this.submitted = false;
 
         this.setLngAndLat = this.setLngAndLat.bind(this);
+        this.setAddress = this.setAddress.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -158,6 +160,7 @@ class CreateEventPage extends React.Component {
     }
 
     renderSpiner(){
+        
         return(
             <div className="spinner-field"><img alt="loading" src="/images/spinner2.gif" /></div>
         );
@@ -171,6 +174,13 @@ class CreateEventPage extends React.Component {
         })
     }
 
+    setAddress(address){
+        this.setState({
+            address: address
+        })
+        console.log("Address : " + this.state.address)
+    }
+
     handleSubmit(event) {
       event.preventDefault();
 
@@ -179,19 +189,20 @@ class CreateEventPage extends React.Component {
       this.submitted = true;
 
       if(validation.isValid) {
-        var event = {
+        var eventModel = {
           name: this.state.name,
           description: this.state.description,
           subcategories: this.state.selectedItemsIds,
           dateTimeEvent: this.state.selectedDay,
           address: {
+              address: this.state.address,
               longitude : this.state.lng,
               latitude : this.state.lat 
           }
         }
 
         const { dispatch } = this.props;
-        dispatch(eventActions.createEvent(event));
+        dispatch(eventActions.createEvent(eventModel)).then(event => dispatch(eventActions.uploadPhoto(this.state.file,event.id)).then(history.push("/event/" + event.id)));
       }
   }
 
@@ -242,6 +253,7 @@ class CreateEventPage extends React.Component {
                                     
                                     <div > 
                                         <LocationSearchInput 
+                                            setAddress={this.setAddress}
                                             setLngAndLat={this.setLngAndLat} 
                                             openModal={this.onOpenMap}
                                         />

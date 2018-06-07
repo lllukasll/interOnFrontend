@@ -53,7 +53,7 @@ function createEvent(event) {
       .then(
         event => {
           dispatch(success(event));
-          resolve();
+          resolve(event);
           //dispatch(alertActions.success("Poprawnie dodano wydarzenie"));
         },
         error => {

@@ -3,6 +3,7 @@ import { authHeader, config } from '../helpers';
 export const groupService = {
   getAll,
   getGroup,
+  getGroupsForUser,
   createGroup,
   updateGroup,
   uploadPhoto,
@@ -27,6 +28,16 @@ function getGroup(id) {
   };
 
   return fetch(config.apiUrl + '/api/group/' + id, requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function getGroupsForUser() {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+
+  return fetch(config.apiUrl + '/api/group/forUser', requestOptions)
     .then(handleResponse, handleError);
 }
 

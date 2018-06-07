@@ -19,6 +19,8 @@ import { CreateMainCategory} from '../components/mainCategories/createMainCatego
 import Event from '../components/events/event/EventPage';
 import EventsList from '../components/events/eventsList/EventsListPage';
 import CreateEventPage from '../components/events/createEvent/CreateEventPage';
+import FriendsPage from '../components/friends/FriendsPage';
+import GroupsForUserPage from '../components/groups/GroupsForUserPage';
 import MapContainer from '../components/map/MapContainer';
 import {history} from '../helpers'
 
@@ -52,6 +54,8 @@ class App extends React.Component {
                 <Route path="/events" component={EventsList} />
                 <Route path="/createEvent" component={CreateEventPage} />
                 <Route path="/maptest" component={MapContainer} />
+                <Route path="/friends" component={FriendsPage} />
+                <Route path="/myGroups" component={GroupsForUserPage} />
                 </div>
             </div>
           </Router>

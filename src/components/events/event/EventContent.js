@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Modal from 'react-responsive-modal';
+import MapContainer from '../../map/MapContainer';
+import { config } from '../../../helpers';
 
 const EventContent = props => (
     <div className="col-md-9 content profile-changes">
@@ -8,13 +10,25 @@ const EventContent = props => (
             <div className="col-md-12">
                 <h1>{props.title}</h1>
                 <p id="group-name">{props.date}, {props.address}
-                <a href="tmp"> <i className="fas fa-map-marker" id="mapBtn"></i></a></p>
+                <i className="fas fa-map-marker" onClick={props.changeMapState}></i></p>
+                <Modal 
+                    open={props.mapState} 
+                    onClose={props.changeMapState} 
+                    center>
+                    <div style={{width: '400px', height: '400px'}}>
+                        <MapContainer 
+                            lat={props.latitude} 
+                            lng={props.longitude} 
+                            width={'400px'} 
+                            height={'400px'}/>
+                    </div>
+                </Modal>
                 <hr />
             </div>
         </div>
         <div className="row">
             <div className="col-md-4 ">
-                <img alt="mecz" src="/images/mecz.jpg" className="group-photo" />
+                <img alt="mecz" src={config.apiUrl + "/api/photo/" + props.photoUrl} className="group-photo" />
             </div>
             <div className="col-md-7 ">
                 <div className="row">

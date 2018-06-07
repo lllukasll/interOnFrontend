@@ -79,7 +79,7 @@ class CreateCommentItem extends React.Component {
                         <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <textarea className="form-control" id="exampleFormControlTextarea1" name="commentContent" onChange={this.handleChange} rows="2" placeholder="Napisz komenatrz"></textarea>
-                            <button type="submit" className="btn btn-secondary" id="submitPost">Dodaj </button>
+                            {this.props.userInGroup || this.props.isAdmin ? (<button type="submit" className="btn btn-secondary" id="submitPost">Dodaj </button>) : (<div>W celu dodania komentarza należy dołączyć do groupy</div>)}
                             <span className="help-block">{validation.commentContent.message}</span>
                         </div>
                         </form>

@@ -5,6 +5,7 @@ import { alertActions } from './';
 export const groupActions = {
   getAll,
   getGroup,
+  getGroupsForUser,
   createGroup,
   updateGroup,
   uploadPhoto,
@@ -51,6 +52,24 @@ function getGroup(id) {
   function request() {return {type: groupConstants.GETGROUP_REQUEST}}
   function success(group) {return {type: groupConstants.GETGROUP_SUCCESS, group}}
   function failure(error) {return {type: groupConstants.GETGROUP_FAILURE, error}}
+}
+
+function getGroupsForUser() {
+  return dispatch => {
+    dispatch(request());
+
+    groupService.getGroupsForUser()
+      .then(
+        groups => dispatch(success(groups)),
+        error => {
+          dispatch(failure(error));
+        }
+      );
+  };
+
+  function request() {return {type: groupConstants.GETGROUPSFORUSER_REQUEST}}
+  function success(groups) {return {type: groupConstants.GETGROUPSFORUSER_SUCCESS, groups}}
+  function failure(error) {return {type: groupConstants.GETGROUPSFORUSER_FAILURE, error}}
 }
 
 function createGroup(group) {
