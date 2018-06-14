@@ -15,7 +15,8 @@ class ChatPage extends React.Component {
         this.state ={
             isLoading: true,
             conversationId: "",
-            friendName: ""
+            friendName: "",
+            friendId: null
         }
     }
 
@@ -49,12 +50,14 @@ class ChatPage extends React.Component {
         if(friend.userA.id == this.props.authentication.user.clientId)
         {
             this.setState({
-                friendName: friend.userB.name + ' ' + friend.userB.surname
+                friendName: friend.userB.name + ' ' + friend.userB.surname,
+                friendId: friend.userB.id
             })
         }else
         {
             this.setState({
-                friendName: friend.userA.name + ' ' + friend.userA.surname
+                friendName: friend.userA.name + ' ' + friend.userA.surname,
+                friendId: friend.userA.id
             })
         }
     }
@@ -79,14 +82,14 @@ class ChatPage extends React.Component {
                                     {!friendsConfirmed || friendsConfirmed.loadingConfirmedFriends ?  (this.renderSpiner()) : 
                                     (<div>
                                         {friendsConfirmed.confirmedFirends.map((friend,indeks) => 
-                                        <li onClick={() => this.changePerson(friend)}>{this.getUserData(friend)}</li>
+                                        <li onClick={(e) => this.changePerson(friend)}>{this.getUserData(friend)}</li>
                                         )}
                                     </div>
                                     )}
                                 </ul>
                             </div>
                             <div className="messanger-message-placeholder">
-                                <Chat conversationName={this.state.conversationId} friendName={this.state.friendName}/>
+                                <Chat conversationName={this.state.conversationId} friendName={this.state.friendName} friendId={this.state.friendId}/>
                             </div>
                         </div>
                     </div>

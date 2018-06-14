@@ -13,6 +13,7 @@ import { posts} from './post.reducer';
 import { comments} from './comment.reducer';
 import { events } from './event.reducer';
 import { friends, friendsInvitations, friendsConfirmed } from './friend.reducer';
+import { messages } from './message.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   friends,
   friendsInvitations,
   friendsConfirmed,
+  messages,
   alert
 });
 
