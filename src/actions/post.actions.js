@@ -7,11 +7,11 @@ export const postActions = {
     getGroupPosts
 }
 
-function addGroupPost(post, id) {
+function addGroupPost(post) {
   return dispatch => {
     dispatch(request(post));
 
-    postService.addGroupPost(post, id)
+    postService.addGroupPost(post)
       .then(
         post => {
           dispatch(success(post));
@@ -27,12 +27,12 @@ function addGroupPost(post, id) {
   function failure(error) {return {type: postConstants.CREATEGROUPPOST_FAILURE, error}}
 }
 
-function updateGroupPost(post, groupId, postId) {
+function updateGroupPost(post,postId) {
   return function (dispatch) {
     return new Promise((resolve, reject) => {
     dispatch(request(post));
 
-    postService.updateGroupPost(post, groupId, postId)
+    postService.updateGroupPost(post,postId)
       .then(
         post => {
           dispatch(success(post));

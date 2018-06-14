@@ -97,10 +97,11 @@ class Group extends React.Component {
     //console.log(this.props.id);
     if(validation.isValid) {
         var post = {
-            content: this.state.postContent
+            content: this.state.postContent,
+            groupId: this.props.id
         }
         const { dispatch } = this.props;
-        dispatch(postActions.addGroupPost(post, this.props.id));
+        dispatch(postActions.addGroupPost(post));
     }
 
   }

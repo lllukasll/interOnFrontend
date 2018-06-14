@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../../common/sideBar/SideBar.js'
 import EventContent from './EventContent.js'
-import { eventActions } from '../../../actions'
+import { eventActions, postActions } from '../../../actions'
 import { connect } from 'react-redux';
 import Modal from 'react-responsive-modal';
 import MapContainer from '../../map/MapContainer';
@@ -29,9 +29,66 @@ class Event extends React.Component {
 
     changeMapState = () => { this.setState({ openMap: !this.state.openMap }) };
 
-    leaveGroup(){
+    joinEvent(){
 
     }
+
+    leaveEvent(){
+
+    }
+
+    handleChange(event) {
+        event.preventDefault();
+
+        this.setState({
+        [event.target.name]: event.target.value,
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        const validation = this.validator.validate(this.state);
+        this.setState({ validation });
+        this.submitted = true;
+        if(validation.isValid) {
+            var post = {
+                content: this.state.postContent,
+                eventId: this.props.id
+            }
+            const { dispatch } = this.props;
+            dispatch(postActions.addGroupPost(post));
+        }
+
+    }
+
+    isUserInGroup(users, userId) {
+        this.setState({userInGroup:false});
+        return new Promise((resolve, reject) => {
+        users.forEach((element) => {
+        if(element.id === userId)
+        {
+            this.setState({userInGroup:true});
+            resolve();
+        }
+        });
+        });
+    }
+
+    checkIfAdmin(adminId, userId) {
+        this.setState({isAdmin: false});
+        return new Promise((resolve, reject) => {
+        if(adminId === userId)
+        {
+            this.setState({isAdmin: true})
+            resolve();
+        } else {
+            this.setState({isAdmin: false})
+            resolve();
+        }
+        });
+    }
+
 
     renderSpiner(){
         return(
@@ -53,7 +110,8 @@ class Event extends React.Component {
                 content={event.description}
                 numberOfPeople={"123"}
                 adminId={6026}
-                leaveGroup={this.leaveGroup}
+                joinEvent={this.joinEvent}
+                leaveEvent={this.leaveEvent}
                 changeMapState={this.changeMapState}
             />
         );

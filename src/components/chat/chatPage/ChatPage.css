@@ -1,0 +1,108 @@
+.message-container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    margin-right: 20px;
+    
+}
+
+.message-darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.message-container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.message-container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.message-container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+.message-time-right {
+    float: right;
+    color: #aaa;
+}
+
+.message-time-left {
+    float: left;
+    color: #999;
+}
+
+
+.messanger-list-of-friends {
+    min-height: 600px;
+    margin-top: 3px;
+    float: left;
+    width: 30%;
+    height: 100%;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+}
+
+.messanger-list-of-friends ul{
+    list-style: none;
+    width: 100%;
+}
+
+.messanger-list-of-friends li{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.messanger-list-of-friends li:hover{
+    color: purple;
+    cursor: pointer;
+}
+
+.messanger-message-placeholder {
+    margin-top: 15px; 
+    float: right;
+    height: 600px;
+    width: 70%;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+
+.messanger-header {
+    height: 25px;
+    margin-bottom: 5px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.messanger-messages {
+    min-height: 460px;
+    max-height: 460px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.messanger-submit {
+    min-height: 100px;
+}   
+
+.messanger-send-input {
+    height: 100px;
+    width: 80%;
+}
+
+.messanger-send-button {
+    height: 98px;
+    width: 20%;
+}

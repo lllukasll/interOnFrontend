@@ -22,6 +22,7 @@ import CreateEventPage from '../components/events/createEvent/CreateEventPage';
 import FriendsPage from '../components/friends/FriendsPage';
 import GroupsForUserPage from '../components/groups/GroupsForUserPage';
 import MapContainer from '../components/map/MapContainer';
+import ChatPage from '../components/chat/chatPage/ChatPage';
 import {history} from '../helpers'
 
 import {Router, Route} from 'react-router-dom';
@@ -56,6 +57,7 @@ class App extends React.Component {
                 <Route path="/maptest" component={MapContainer} />
                 <Route path="/friends" component={FriendsPage} />
                 <Route path="/myGroups" component={GroupsForUserPage} />
+                <Route path="/chatPage" component={ChatPage} />
                 </div>
             </div>
           </Router>

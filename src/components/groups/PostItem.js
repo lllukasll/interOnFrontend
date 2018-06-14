@@ -64,7 +64,7 @@ class PostItem extends React.Component {
                 editPost: false
             })
             const { dispatch } = this.props;
-            dispatch(postActions.updateGroupPost(post, this.props.groupId, this.props.post.id));
+            dispatch(postActions.updateGroupPost(post, this.props.post.id));
             //console.log('Dispatch Update Group Post | post " ' + post.content + ' groupId : ' + this.props.groupId + ' postId : ' + this.props.post.id);
         }
     }

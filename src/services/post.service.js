@@ -3,28 +3,29 @@ import { authHeader, config } from '../helpers';
 export const postService = {
   addGroupPost,
   updateGroupPost,
-  getGroupPosts
+  getGroupPosts,
+  getEventPosts
 };
 
-function addGroupPost(post, id) {
+function addGroupPost(post) {
   const requestOptions = {
     method: 'POST',
     headers: {...authHeader(), 'Content-Type': 'application/json'},
     body: JSON.stringify(post)
   };
 
-  return fetch(config.apiUrl + '/api/group/' + id + '/post', requestOptions)
+  return fetch(config.apiUrl + '/api/post/', requestOptions)
     .then(handleResponse, handleError);
 }
 
-function updateGroupPost(post, groupId, postId) {
+function updateGroupPost(post, postId) {
   const requestOptions = {
     method: 'PUT',
     headers: {...authHeader(), 'Content-Type': 'application/json'},
     body: JSON.stringify(post)
   };
 
-  return fetch(config.apiUrl + '/api/group/' + groupId + '/post/' + postId, requestOptions)
+  return fetch(config.apiUrl + '/api/post/' + postId, requestOptions)
     .then(handleResponse, handleError);
 }
 
@@ -34,7 +35,17 @@ function getGroupPosts(id) {
     headers: authHeader()
   };
 
-  return fetch(config.apiUrl + '/api/group/' + id + '/post', requestOptions)
+  return fetch(config.apiUrl + '/api/post/group/' + id , requestOptions)
+    .then(handleResponse, handleError);
+}
+
+function getEventPosts(id) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+
+  return fetch(config.apiUrl + '/api/post/event/' + id , requestOptions)
     .then(handleResponse, handleError);
 }
 
